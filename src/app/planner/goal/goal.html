@@ -1,0 +1,143 @@
+<div class="container">
+  <div class="panel panel-default">
+    <div class="panel-heading rgCommandRow">Edit Section
+      <span class="pull-right" style="cursor:pointer">
+        <div class="ctooltip">
+          <i class="glyphicon glyphicon-remove"></i>
+          <span class="ctooltiptext">Close</span>
+        </div>
+      </span>
+    </div>
+    <div class="panel-body">
+      <form [formGroup]="objectiveForm" (submit)="onSubmit()">
+        <div class="row">
+          <div class="col-lg-12 col-xs-12 col-sm-12">
+            <div class="form-group">
+              <label class="col-form-label">
+                <span class="badge">Objective</span>
+              </label>
+              <textarea class="form-control" rows="3" formControlName="objective"></textarea>
+            </div>
+          </div>
+          <!-- <div class="col-lg-2 col-xs-12 col-sm-3">
+            <div class="form-group">
+              <label class="col-form-label">
+                    <span class="badge">Estimated Cost</span>
+                  </label>
+              <input type="number" class="form-control" placeholder="20000" formControlName="totalCost">
+            </div>
+          </div> -->
+        </div>
+        <!-- <div class="panel panel-info panel-no-border">
+          <div class="panel-heading background-transparent">
+            <b><span class="badge">Strategic Performance indicator</span></b>
+          </div>
+          <div class="panel-body" formArrayName="spis">
+            <ul class="nav nav-tabs">
+              <li [ngClass]="{'active': ul == objectiveForm.controls.spis.controls.length - 1}" *ngFor="let s of objectiveForm.controls.spis.controls;let ul = index;"
+                class="list-model">
+                <a class="list-model" data-toggle="tab" [attr.data-target]="'#spi' + ul">Spi {{ul+1}} 
+                    <button type="button" class="close close-button" aria-label="Close" (click)="removeSpi(objectiveForm,ul)">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                    </a>
+              </li>
+              <li>
+                <button class="btn btn-primary measure-button" (click)="addSpi(objectiveForm)" [disabled]="objectiveForm.controls.spis.invalid"><i class="glyphicon glyphicon-plus"></i></button>
+              </li>
+            </ul>
+            <div class="tab-content">
+              <div [attr.id]="'spi' + i" class="tab-pane fade" *ngFor="let s of objectiveForm.controls.spis.controls; let i = index;" [formGroupName]="i"
+                [ngClass]="{'in active': i == objectiveForm.controls.spis.controls.length - 1}">
+
+                <div class="well">
+                  <div class="row">
+                    <div class="col-lg-6 col-xs-12 col-sm-6">
+                      <div class="form-group">
+                        <label>Enter SPI</label>
+                        <textarea class="form-control" rows="5" formControlName="spi"></textarea>
+                      </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-6 col-xs-12 col-md-6">
+                      <div class="row">
+                        <div class="form-group">
+                          <label>Current Level</label>
+                          <input type="number" min="0" step="1" class="form-control" formControlName="currentLevel">
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="form-group">
+                          <label>Select MeasureUnit</label>
+                          <select class="form-control" formControlName="measureUnit">
+                                  <option value="" disabled selected>Choose Measurement Unit</option>
+                                  <option value="percentage">Percent</option>
+                                  <option value="decimal">Decimal</option>
+                                </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="panel panel-default" formArrayName="targetDigital">
+                    <div class="panel-heading  background-transparent">
+                      <b>Annual Target</b>
+                    </div>
+                    <div class="panel-body">
+                      <div class="form-group row">
+                        <div class="col-lg-3 col-sm-3 col-xs-12 col-md-3" *ngFor="let td of objectiveForm.controls.spis.controls[i].controls.targetDigital.controls;let m = index;"
+                          [formGroupName]="m">
+                          <label for="example-text-input">{{td.value.year}}</label>
+                          <input type="number" min="0" step="1" class="form-control" formControlName="expectedLevel">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> -->
+        <!-- <button class="btn btn-info" (click)="addSpi(objectiveForm)" [disabled]="objectiveForm.controls.spis.invalid">Add SPI</button> -->
+        <button type="submit" class="btn btn-success" [disabled]="objectiveForm.invalid">Submit</button>
+        <button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Close</button>
+      </form>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading rgCommandRow">Strategic Goals
+      <span class="pull-right" style="cursor:pointer">
+        <div class="ctooltip">
+          <i class="glyphicon glyphicon-plus"></i>
+          <span class="ctooltiptext">Add Goal</span>
+        </div>
+      </span>
+    </div>
+    <div class="panel-body">
+      <table class="table table-hover table-bordered">
+        <!-- <colgroup>
+            <col style="width:2%">
+            <col style="width:90%">
+            <col style="width:5%">
+            <col style="width:2%">
+          </colgroup> -->
+        <thead>
+          <tr>
+            <!-- <th class="rgHeader"></th> -->
+            <th class="rgHeader">Goal
+
+            </th>
+            <!-- <th class="rgHeader">isActive</th> -->
+            <!-- <th class="rgHeader"></th> -->
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let goal of goals;let i = index;">
+            <!-- <td><i class="glyphicon glyphicon-pencil"></i></td> -->
+            <td style="vertical-align: middle;">{{goal.objective}}</td>
+            <!-- <td><i class="glyphicon glyphicon-check"></i></td> -->
+            <!-- <td></td> -->
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

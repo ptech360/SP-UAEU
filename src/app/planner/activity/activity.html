@@ -1,0 +1,173 @@
+<div class="container">
+<div class="panel panel-default">
+  <div class="panel-heading rgCommandRow">Edit Section
+    <span class="pull-right" style="cursor:pointer">
+        <div class="ctooltip">
+          <i class="glyphicon glyphicon-remove"></i>
+          <span class="ctooltiptext">Close</span>
+  </div>
+  </span>
+</div>
+<div class="panel-body">
+  <form [formGroup]="activityForm" (submit)="submitActivity()">
+    <div class="row">
+        <div class="col-lg-6 col-xs-12 col-sm-12">
+          <div class="form-group">
+              <label for="sel1">Select Goal:</label>
+              <select class="form-control" id="sel1" formControlName="objectiveId" (ngModelChange)="getInitiative($event)">
+                <option *ngFor="let objective of objectives;let i=index;" [value]="objective.objectiveId">{{objective.objective}}</option>
+              </select>
+          </div>
+        </div>
+        <div class="col-lg-6 col-xs-12 col-sm-12">
+          <div class="form-group">
+              <label for="sel1">Select Initiative:</label>
+              <select class="form-control" id="sel1" formControlName="initiativeId">
+                <option *ngFor="let initiative of initiatives;let j=index;" [value]="initiative.id">{{initiative.initiative}}</option>
+              </select>
+          </div>
+        </div>
+      <div class="col-lg-12 col-xs-12 col-sm-12">
+        <div class="form-group">
+          <label>Activity</label>
+          <textarea class="form-control" rows="2" formControlName="activity"></textarea>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="panel panel-info">
+      <div class="panel-heading">
+        <b><span class="badge">Add Measure</span></b></div>
+      <div class="panel-body" formArrayName="measures">
+        <ul class="nav nav-tabs">
+          <li [ngClass]="{'active': ul == activityForm.controls.measures.controls.length - 1}" *ngFor="let measureAct of activityForm.controls.measures.controls;let ul= index;">
+            <a data-toggle="tab" [attr.data-target]="'#measure' + ul">{{ul+1}} 
+                  <button type="button" class="close close-button" aria-label="Close" (click)="removeMeasure(activityForm,ul)">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+                  </a>
+          </li>
+          <li>
+            <button class="btn btn-primary measure-button" style="cursor:pointer;" (click)="addMeasure(activityForm)" [disabled]="activityForm.controls.measures.invalid"><i class="glyphicon glyphicon-plus"></i></button>
+          </li>
+        </ul>
+        <div class="tab-content">
+          <div [attr.id]="'measure' + i" class="tab-pane fade" *ngFor="let measureAct of activityForm.controls.measures.controls; let i = index;"
+            [formGroupName]="i" [ngClass]="{'in active': i == activityForm.controls.measures.controls.length - 1}">
+            <h3></h3>
+            <div class="row">
+              <div class="col-lg-6 col-xs-12 col-sm-6">
+                <div class="form-group">
+                  <label>Measure</label>
+                  <textarea class="form-control" rows="5" formControlName="measure"></textarea>
+                </div>
+                <div class="form-group">
+                  <label>Select MeasureUnit</label>
+                  <select class="form-control" formControlName="measureUnit">
+                          <option value="" disabled selected>Choose Measurement Unit</option>
+                          <option value="percentage">Percent</option>
+                          <option value="decimal">Decimal</option>
+                        </select>
+                </div>
+              </div>
+              <div class="col-lg-6 col-xs-12 col-sm-6">
+                <div class="form-group">
+                  <label>Select Direction</label>
+                  <select class="form-control" formControlName="direction">
+                          <option value="" disabled selected>Choose Direction of measureUnit</option>
+                          <option value="upward">Upward</option>
+                          <option value="downward">Downward</option>
+                        </select>
+                </div>
+                <div class="form-group">
+                  <label>Current Level</label>
+                  <input type="number" min="0" step="1" class="form-control" formControlName="currentLevel">
+                </div>
+                <div class="form-group">
+                  <label>Frequency of Measurement</label>
+                  <select class="form-control" formControlName="frequencyId" (ngModelChange)="setTargetTable(measureAct.controls.annualTarget.controls,$event)">
+                          <option value="1">Annually</option>
+                          <option value="2">Semi-Annual</option>      
+                          <option value="4">Quarterly</option> 
+                        </select>
+                </div>
+              </div>
+            </div>
+            <div class="panel panel-info">
+              <div class="panel-heading text-center background-transparent"><b><span class="badge">
+                      {{commonService.getData('org_info').cycle[0]}} - {{commonService.getData('org_info').cycle[commonService.getData('org_info').cycle.length-1]}}
+                      Annual Target</span></b>
+              </div>
+              <div class="panel-body no-padding">
+                <div class="table-responsive">
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>Year</th>
+                        <th>Estimate Target</th>
+                        <th>Estimate Cost</th>
+                      </tr>
+                    </thead>
+                    <tbody formArrayName="annualTarget">
+                      <tr *ngFor="let td of measureAct.controls.annualTarget.controls;let n = index;" [formGroupName]="n">
+                        <td>{{td.value.year}}</td>
+                        <div class="unexistance" formArrayName="levels">
+                          <td *ngFor="let le of td.controls.levels.controls;let o = index;" [formGroupName]="o">
+                            <input type="text" class="validate" formControlName="estimatedTargetLevel">
+                            <input type="text" formControlName="quarter" hidden>
+                            <input type="date" formControlName="startDate">
+                            <input type="date" formControlName="endDate">
+                          </td>
+                        </div>
+                        <td><input type="text" class="validate" formControlName="estimatedCost"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+    <button type="submit" class="btn btn-success" [disabled]="activityForm.invalid">Submit</button>
+    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+  </form>
+</div>
+</div>
+<div class="panel panel-default">
+  <div class="panel-heading rgCommandRow">Proposed Activities
+    <span class="pull-right" style="cursor:pointer">
+        <div class="ctooltip">
+          <i class="glyphicon glyphicon-plus"></i>
+          <span class="ctooltiptext">Add Activity</span>
+  </div>
+  </span>
+</div>
+<div class="panel-body">
+  <table class="table table-hover table-bordered">
+    <thead>
+      <tr>
+        <th class="rgHeader">Goal</th>
+        <th class="rgHeader">Initiative</th>
+        <th class="rgHeader">Activitives</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let goal of goals;let i = index;">
+      <tr>
+        <td style="vertical-align: middle;" [attr.rowspan]="getRowSpan(goal.initiatives)">{{ goal.objective }}</td>
+      </tr>
+      <ng-template let-initiate ngFor [ngForOf]="goal.initiatives" let-j="index">
+        <tr>
+          <td style="vertical-align: middle;" [attr.rowspan]="initiate.activities.length + 1">{{initiate.initiative}}</td>
+        </tr>
+        <ng-template let-activit ngFor [ngForOf]="initiate.activities" let-k="index">
+          <tr>
+            <td style="vertical-align: middle;">{{activit.activity}}</td>
+          </tr>
+        </ng-template>
+      </ng-template>
+    </tbody>
+  </table>
+</div>
+</div>
+</div>

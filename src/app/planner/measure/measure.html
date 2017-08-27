@@ -1,0 +1,172 @@
+<div class="container">
+  <div class="panel panel-default">
+    <div class="panel-heading rgCommandRow">Edit Section
+      <span class="pull-right" style="cursor:pointer">
+        <div class="ctooltip">
+          <i class="glyphicon glyphicon-plus"></i>
+          <span class="ctooltiptext">Close</span>
+    </div>
+    </span>
+  </div>
+  <div class="panel-body">
+    <form [formGroup]="measureForm" (submit)="submitMeasure()">
+      <div class="row">
+        <div class="col-lg-6 col-xs-12 col-sm-12">
+          <div class="form-group">
+            <label>Select Goal:</label>
+            <select class="form-control" id="sel1" formControlName="objectiveId" (ngModelChange)="getInitiative($event)">
+              <option *ngFor="let objective of objectives;let i=index;" [value]="objective.objectiveId">{{objective.objective}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-lg-6 col-xs-12 col-sm-12">
+          <div class="form-group">
+            <label>Select Initiative:</label>
+            <select class="form-control" id="sel1" formControlName="initiativeId" (ngModelChange)="getActivities($event)">
+              <option *ngFor="let initiative of initiatives;let j=index;" [value]="initiative.id">{{initiative.initiative}}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-lg-6 col-xs-12 col-sm-12">
+          <div class="form-group">
+            <label>Select Activity:</label>
+            <select class="form-control" id="sel1" formControlName="activityId">
+              <option *ngFor="let activity of activities;let k=index;" [value]="activity.id">{{activity.activity}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-lg-6 col-xs-12 col-sm-12">
+          <div class="form-group">
+            <label>Measure</label>
+            <textarea class="form-control" rows="3" formControlName="measure"></textarea>
+          </div>
+        </div>
+        <div class="col-lg-6 col-xs-12 col-sm-12">
+          <div class="form-group">
+            <label>Select MeasureUnit</label>
+            <select class="form-control" formControlName="measureUnit">
+              <option value="" disabled selected>Choose Measurement Unit</option>
+              <option value="percentage">Percent</option>
+              <option value="decimal">Decimal</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-lg-6 col-xs-12 col-sm-12">
+          <div class="form-group">
+            <label>Select Direction</label>
+            <select class="form-control" formControlName="direction">
+              <option value="" disabled selected>Choose Direction of measureUnit</option>
+              <option value="upward">Upward</option>
+              <option value="downward">Downward</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-lg-6 col-xs-12 col-sm-12">
+          <div class="form-group">
+            <label>Current Level</label>
+            <input type="number" min="0" step="1" class="form-control" formControlName="currentLevel">
+          </div>
+        </div>
+        <div class="col-lg-6 col-xs-12 col-sm-12">
+          <div class="form-group">
+            <label>Frequency of Measurement</label>
+            <select class="form-control" formControlName="frequencyId" (ngModelChange)="setTargetTable(measureForm.controls.annualTarget.controls,$event)">
+                  <option value="1">Annually</option>
+                  <option value="2">Semi-Annual</option>      
+                  <option value="4">Quarterly</option> 
+                </select>
+          </div>
+        </div>
+      </div>
+
+      <div >
+        <div class="panel-heading text-center"><b><span class="badge">{{commonService.getData('org_info').cycle[0]}} - {{commonService.getData('org_info').cycle[commonService.getData('org_info').cycle.length-1]}}
+              Annual Target</span></b></div>
+        <div class="panel-body no" style="text-align: center;">
+          <table class="table table-striped" formArrayName="annualTarget">
+            <thead>
+              <tr>
+                <th class="rgHeader" style="text-align: center;">Year</th>
+                <th class="rgHeader" style="text-align: center;">Estimate Target</th>
+                <th class="rgHeader" style="text-align: center;">Estimate Cost</th>
+              </tr>              
+            </thead>
+            <tbody *ngFor="let td of measureForm.controls.annualTarget.controls;let n = index;" [formGroupName]="n">
+              <tr>
+                <td style="vertical-align:middle;">{{td.value.year}}</td>
+                <div class="unexistance" formArrayName="levels">
+                  <td class="custom-center" *ngFor="let le of td.controls.levels.controls;let o = index;" [formGroupName]="o">
+                    <!-- <input type="text" class="validate" formControlName="estimatedTargetLevel"> -->
+                    <div class="form-group">
+                      <div class="input-group">
+                        <input type="text" class="form-control" id="exampleInputAmount" formControlName="estimatedTargetLevel" placeholder="Target">
+                        <div class="input-group-addon">
+                          <select *ngIf="measureForm.controls.frequencyId.value != 4" [(ngModel)]="selectedQuarter" [ngModelOptions]="{standalone: true}" (ngModelChange)="setLevelByIndex(le,$event)">
+                            <option *ngFor="let q of quarters;let qi=index;" [value]="qi">Q{{qi+1}}</option>
+                          </select>
+                          <span *ngIf="measureForm.controls.frequencyId.value == 4">Q{{o+1}}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <input type="text" formControlName="quarter" hidden>
+                    <input type="date" formControlName="startDate" hidden>
+                    <input type="date" formControlName="endDate" hidden>
+                  </td>
+                </div>
+                <td style="vertical-align:middle;"><input type="text" class="validate" formControlName="estimatedCost"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-success" [disabled]="measureForm.invalid">Submit</button>
+      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    </form>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading rgCommandRow">Proposed Measures
+    <span class="pull-right" style="cursor:pointer">
+      <div class="ctooltip">
+        <i class="glyphicon glyphicon-plus"></i>
+        <span class="ctooltiptext">Add Activity</span>
+      </div>
+  </span>
+</div>
+<div class="panel-body">
+  <table class="table table-hover table-bordered">
+    <thead>
+      <tr>
+        <th class="rgHeader">Goal</th>
+        <th class="rgHeader">Initiative</th>
+        <th class="rgHeader">Activitives</th>
+        <th class="rgHeader">Measures</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let goal of goals;let i = index;">
+      <tr>
+        <td style="vertical-align: middle;" [attr.rowspan]="getRowSpan(goal.initiatives)">{{ goal.objective }}</td>
+      </tr>
+      <ng-template let-initiate ngFor [ngForOf]="goal.initiatives" let-j="index">
+        <tr>
+          <td style="vertical-align: middle;" [attr.rowspan]="getRowSpanOfIni(initiate.activities)">{{initiate.initiative}}</td>
+        </tr>
+        <ng-template  let-activit ngFor [ngForOf]="initiate.activities" let-k="index">
+          <tr>
+            <td style="vertical-align: middle;" [attr.rowspan]="activit.measures.length + 1">
+              {{activit.activity}}</td>
+          </tr>
+          <ng-template let-msr ngFor [ngForOf]="activit.measures" let-l="index">
+            <tr>
+              <td style="vertical-align: middle;">{{msr.measure}}</td>
+            </tr>
+          </ng-template>
+        </ng-template>
+      </ng-template>
+    </tbody>
+  </table>
+</div>
+</div>
+</div>

@@ -1,10 +1,11 @@
 import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AppComponent }  from './app.component';
 import { RouterModule, Routes } from '@angular/router';
-export const routes : Routes = [
+import { AppComponent }  from './app.component';
+import { StorageService } from "./shared/storage.service";
+
+
+export const routes: Routes = [
 	{
 		path: '',
 		redirectTo: 'login',
@@ -15,13 +16,15 @@ export const routes : Routes = [
 		loadChildren : 'app/login/login.module#LoginModule'
 	},
 	{
-		path : 'home',
-		loadChildren : 'app/home/home.module#HomeModule'
+		path : 'planner',
+		loadChildren : 'app/planner/planner.module#PlannerModule'
 	}
 	];
 @NgModule({
-  imports:      [ ReactiveFormsModule, BrowserModule, RouterModule.forRoot(routes),FormsModule],
-  declarations: [ AppComponent ],
-  bootstrap:    [ AppComponent ]
+  imports:[ BrowserModule,RouterModule.forRoot(routes)],
+	declarations: [ AppComponent ],
+	providers:[StorageService],
+	bootstrap:    [ AppComponent ],
+	exports:[]
 })
 export class AppModule { }

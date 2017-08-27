@@ -1,0 +1,133 @@
+  <div class="container-fluid">
+    <div class="panel panel-info panel-no-border">
+      <!--<div class="panel-heading background-transparent text-center panel-no-border">-->
+      <div class="panel-heading">
+        <div class="dropdown pull-right">
+          <span class="glyphicon glyphicon-option-vertical dropdown-toggle" data-toggle="dropdown" (click)="editMisionVision('mission', organizationInfo.mission);"></span>
+          <ul class="dropdown-menu">
+            <li><a data-toggle="modal" data-target="#missionVisionForm" >Edit</a></li>
+          </ul>
+        </div>
+        <b class="panel-title">Mission</b>
+      </div>
+      <div class="panel-body panel-no-border">
+        {{organizationInfo.mission}}
+      </div>
+    </div>
+    <div class="panel panel-info panel-no-border">
+      <!--<div class="panel-heading background-transparent text-center panel-no-border">-->
+      <div class="panel-heading">
+        <div class="dropdown pull-right">
+          <span class="glyphicon glyphicon-option-vertical dropdown-toggle" data-toggle="dropdown" 
+          (click)="editMisionVision('vision', organizationInfo.vision);"></span>
+          <ul class="dropdown-menu">
+            <li><a data-toggle="modal" data-target="#missionVisionForm" >Edit</a></li>
+          </ul>
+        </div>
+        <b class="panel-title">Vision</b>
+      </div>
+      <div class="panel-body panel-no-border">
+        {{organizationInfo.vision}}
+      </div>
+    </div>
+  
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <b>Values</b>
+          <span class="pull-right ctooltip">
+            <button class="btn btn-circle btn-right green-background" data-toggle="modal" data-target="#valueForm">
+              <i class="glyphicon glyphicon-plus"></i>
+            </button>
+            <span class="ctooltiptext">Add Values</span>
+          </span>
+        </h3>            
+      </div>
+      <div class="panel-collapse collapse in">
+        <div class="panel-body">
+          <div class="panel panel-info" *ngFor="let val of organizationInfo.values;let i = index;">
+            <div class="panel-heading"><b>{{i+1}}. {{val.title}}</b>
+              <div class="dropdown pull-right">
+                <span class="glyphicon glyphicon-option-vertical dropdown-toggle" data-toggle="dropdown"></span>
+                <ul class="dropdown-menu">
+                  <li><a data-toggle="modal" data-target="#valueForm" (click)="onValueSelected(val,i)">Edit</a></li>
+                  <li><a (clcik)="deleteValue(val,i)">Delete</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="panel-body">{{val.description}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="modal fade" id="valueForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">
+              <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+          </button>
+          <h4 class="modal-title" id="myModalLabel">
+            Value
+          </h4>
+        </div>
+        <!-- Modal Body -->
+        <form [formGroup]="valueForm" (submit)="onValueSubmit()">
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="title">Title</label>
+              <input type="text" class="form-control" id="title" formControlName="title" />
+            </div>
+            <div class="form-group">
+              <label for="description">Description</label>
+              <textarea type="text" class="form-control" id="description" formControlName="description"></textarea>
+            </div>
+          </div>
+          <!-- Modal Footer -->
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-default">Submit</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="modal fade" id="missionVisionForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">
+            <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+          </button>
+          <h4 class="modal-title" id="myModalLabel" style="text-transform:capitalize;">
+            {{missionVision}}
+          </h4>
+        </div>
+        <!-- Modal Body -->
+        <form [formGroup]="missionVisionForm" (submit)="onMissionVisionSubmit()">
+          <div class="modal-body">
+            <div class="form-group">
+              <!--<label for="description">Description</label>-->
+              <textarea type="text" class="form-control" id="description" formControlName="description"></textarea>
+            </div>
+          </div>
+          <!-- Modal Footer -->
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-default">Submit</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+      <!-- ===============================================================================
+  ======================== /End of Initial setup Interface ==============================================
+  ===================================================================================== -->
+  

@@ -1,0 +1,98 @@
+<div class="container">
+  <div class="panel panel-default">
+    <div class="panel-heading rgCommandRow">Edit Section
+      <span class="pull-right" style="cursor:pointer">
+          <div class="ctooltip">
+            <i class="glyphicon glyphicon-remove"></i>
+            <span class="ctooltiptext">Close</span>
+    </div>
+    </span>
+  </div>
+  <div class="panel-body">
+    <form [formGroup]="spiForm" (submit)="onSubmit()">
+      <div class="row">
+        <div class="col-lg-6 col-xs-6 col-sm-12">
+          <div class="form-group">
+            <label for="sel1">Select Goal:</label>
+            <select class="form-control" id="sel1" formControlName="objectiveId">
+                            <option *ngFor="let objective of objectives;let i=index;" [value]="objective.objectiveId">{{objective.objective}}</option>
+                          </select>
+          </div>
+        </div>
+        <div class="col-lg-6 col-xs-12 col-sm-6">
+          <div class="form-group">
+            <label>Enter SPI</label>
+            <textarea class="form-control" rows="5" formControlName="spi"></textarea>
+          </div>
+        </div>
+        <div class="col-lg-6 col-sm-6 col-xs-12 col-md-6">
+          <div class="row">
+            <div class="form-group">
+              <label>Current Level</label>
+              <input type="number" min="0" step="1" class="form-control" formControlName="currentLevel">
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group">
+              <label>Select MeasureUnit</label>
+              <select class="form-control" formControlName="measureUnit">
+                <option value="" disabled selected>Choose Measurement Unit</option>
+                <option value="percentage">Percent</option>
+                <option value="decimal">Decimal</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default" formArrayName="targetDigital">
+        <div class="panel-heading  background-transparent">
+          <b>Annual Target</b>
+        </div>
+        <div class="panel-body">
+          <div class="form-group row">
+            <div class="col-lg-3 col-sm-3 col-xs-12 col-md-3" *ngFor="let td of spiForm.controls.targetDigital.controls;let m = index;"
+              [formGroupName]="m">
+              <label for="example-text-input">{{td.value.year}}</label>
+              <input type="number" min="0" step="1" class="form-control" formControlName="expectedLevel">
+            </div>
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-success" [disabled]="spiForm.invalid">Submit</button>
+      <button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Close</button>
+    </form>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading rgCommandRow">Strategic Planning - Strategic Performance Indicators
+    <span class="pull-right" style="cursor:pointer">
+            <div class="ctooltip">
+              <i class="glyphicon glyphicon-plus"></i>
+              <span class="ctooltiptext">Add Activity</span>
+  </div>
+  </span>
+</div>
+<div class="panel-body">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th class="rgHeader">Goal</th>
+        <th class="rgHeader">Performance Indicator</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let spi of spis;let i = index;">
+      <tr>
+        <td [attr.rowspan]="spi.spis.length+1" style="vertical-align: middle;">{{spi.objective}}</td>
+        <ng-template let-spi ngFor [ngForOf]="spi.spis" let-j="index">
+          <tr>
+            <td  style="vertical-align: middle;" >{{spi.spi}}</td>
+          </tr>
+        </ng-template>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</div>
+
+</div>

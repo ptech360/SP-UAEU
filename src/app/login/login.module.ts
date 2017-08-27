@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { LoginComponent } from './login.component';
 import { RouterModule } from '@angular/router';
-import { LoginService } from './login.service';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CredentialService } from './login.service';
+import { SharedModule } from "../shared/shared.module";
 @NgModule({
-	imports: [ReactiveFormsModule,FormsModule,RouterModule.forChild([{
+	imports: [SharedModule,RouterModule.forChild([{
 	 path: '', component: LoginComponent 
 	 }])],
 	declarations : [LoginComponent],
-	exports: [RouterModule],
-	providers:[LoginService]
+	// exports: [RouterModule],
+	providers:[CredentialService]
 })
 export class LoginModule { }

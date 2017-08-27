@@ -1,25 +1,49 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Angular QuickStart</title>
-    <base href="/">
-    <meta charset="UTF-8">
+    <meta charset=UTF-8>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Strategic Planning</title>
+    <base href="/">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="styles.css">
-
-    <!-- Polyfill(s) for older browsers -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- Polyfills -->
     <script src="node_modules/core-js/client/shim.min.js"></script>
-
     <script src="node_modules/zone.js/dist/zone.js"></script>
     <script src="node_modules/systemjs/dist/system.src.js"></script>
 
-    <script src="systemjs.config.js"></script>
+    <!-- Polyfills -->
+    <!-- Update these package versions as needed -->
+    <!-- <script src="https://unpkg.com/core-js/client/shim.min.js"></script>
+    <script src="https://unpkg.com/zone.js@0.8.4?main=browser"></script>
+    <script src="https://unpkg.com/systemjs@0.19.39/dist/system.src.js"></script> -->
+
+    <!--<script src="systemjs.config.js"></script>-->
+    <!-- This SystemJS configuration loads umd packages from the web -->
+    <script src="systemjs.config.server.js"></script>
     <script>
       System.import('main.js').catch(function(err){ console.error(err); });
     </script>
   </head>
 
   <body>
-    <my-app>Loading AppComponent content here ...</my-app>
+    <my-app>
+    <div class="bookshelf_wrapper">
+      <ul class="books_list">
+        <li class="book_item first"></li>
+        <li class="book_item second"></li>
+        <li class="book_item third"></li>
+        <li class="book_item fourth"></li>
+        <li class="book_item fifth"></li>
+        <li class="book_item sixth"></li>
+      </ul>
+      <div class="shelf"></div>
+      </div>
+      <div class="text-load">Loading...</div>
+   </my-app>
+ </div>
+    </my-app>
   </body>
 </html>
