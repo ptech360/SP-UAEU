@@ -102,7 +102,7 @@
                       <div class="input-group">
                         <input type="text" class="form-control" id="exampleInputAmount" formControlName="estimatedTargetLevel" placeholder="Target">
                         <div class="input-group-addon">
-                          <select *ngIf="measureForm.controls.frequencyId.value != 4" [(ngModel)]="selectedQuarter" [ngModelOptions]="{standalone: true}" (ngModelChange)="setLevelByIndex(le,$event)">
+                          <select *ngIf="measureForm.controls.frequencyId.value != 4" (ngModel)="selectedQuarter" [ngModelOptions]="{standalone: true}" (ngModelChange)="setLevelByIndex(le,$event)">
                             <option *ngFor="let q of quarters;let qi=index;" [value]="qi">Q{{qi+1}}</option>
                           </select>
                           <span *ngIf="measureForm.controls.frequencyId.value == 4">Q{{o+1}}</span>
