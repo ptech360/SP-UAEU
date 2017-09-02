@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent }  from './app.component';
 import { StorageService } from "./shared/storage.service";
+import { AuthGuard } from "./shared/auth.gaurd";
 
 
 export const routes: Routes = [
@@ -17,13 +18,14 @@ export const routes: Routes = [
 	},
 	{
 		path : 'planner',
-		loadChildren : 'app/planner/planner.module#PlannerModule'
+		loadChildren : 'app/planner/planner.module#PlannerModule',
+		canActivate:[AuthGuard]
 	}
 	];
 @NgModule({
-  imports:[ BrowserModule,RouterModule.forRoot(routes)],
+  imports:[ BrowserModule,RouterModule.forRoot(routes,{ useHash: true })],
 	declarations: [ AppComponent ],
-	providers:[StorageService],
+	providers:[StorageService, AuthGuard],
 	bootstrap:    [ AppComponent ],
 	exports:[]
 })

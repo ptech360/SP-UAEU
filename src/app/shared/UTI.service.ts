@@ -75,6 +75,12 @@ export class UniversityService {
     .catch(this.handleError);
   }
 
+  public getObjectivesWithHierarchy(){
+    return this.http.get(this.baseUrl + "/objectives/all")
+    .map(this.extractData)
+    .catch(this.handleError);
+  }
+
   public getInitiatives(){
     return this.http.get(this.baseUrl + "/initiatives")
     .map(this.extractData)
@@ -100,11 +106,35 @@ export class UniversityService {
       .catch(this.handleError);
   }
 
+  public deleteObjective(id:any){
+    return this.http.delete(this.baseUrl + "/objective/"+id)
+    .map(this.extractData)
+    .catch(this.handleError);
+  }
+
+  public updateObjective(id:any,object:any){
+    return this.http.put(this.baseUrl + "/objective/"+id,object)
+    .map(this.extractData)
+    .catch(this.handleError);
+  }
+
   public addInitiative(initiative: any) {
     
     return this.http.post(this.baseUrl + "/initiative", initiative)
       .map(this.extractData)
       .catch(this.handleError);
+  }
+
+  public deleteInitiative(id:any){
+    return this.http.delete(this.baseUrl + "/initiative/"+id)
+    .map(this.extractData)
+    .catch(this.handleError);
+  }
+
+  public updateInitiative(id:any,object:any){
+    return this.http.put(this.baseUrl + "/initiative/"+id,object)
+    .map(this.extractData)
+    .catch(this.handleError);
   }
 
   public fetchInitiative(goalId: any) {    
@@ -117,6 +147,18 @@ export class UniversityService {
     return this.http.get(this.baseUrl + "/initiative/"+initId+"/activity")
     .map(this.extractData)
     .catch(this.handleError); 
+  }
+
+  public deleteActivity(id:any){
+    return this.http.delete(this.baseUrl + "/activity/"+id)
+    .map(this.extractData)
+    .catch(this.handleError);
+  }
+
+  public updateActivity(id:any,object:any){
+    return this.http.put(this.baseUrl + "/activity/"+id,object)
+    .map(this.extractData)
+    .catch(this.handleError);
   }
 
   public fetchAssignedActivity(departmentIds: any[]) {
@@ -191,10 +233,26 @@ export class UniversityService {
       .catch(this.handleError);
   }
 
+  public deleteSpi(spiId:any){
+    return this.http.delete(this.baseUrl + "/spi/"+spiId)
+  }
+
   public saveMeasure(measure: any) {    
     return this.http.post(this.baseUrl + "/measures", measure)
       .map(this.extractData)
       .catch(this.handleError);
+  }
+
+  public deleteMeasure(measureId:any){
+    return this.http.delete(this.baseUrl + "/measure/"+measureId)
+    .map(this.extractData)
+    .catch(this.handleError);
+  }
+
+  public updateMeasure(measureId:any,object:any){
+    return this.http.put(this.baseUrl + "/measure/"+measureId,object)
+    .map(this.extractData)
+    .catch(this.handleError);
   }
 
   public updateMisionVision(object:any){    
@@ -205,6 +263,18 @@ export class UniversityService {
 
   public getQuarter(){
     return this.http.get(this.baseUrl + "/quarters")
+    .map(this.extractData)
+    .catch(this.handleError);
+  }
+
+  public getDepartments(){
+    return this.http.get(this.baseUrl + "/department")
+    .map(this.extractData)
+    .catch(this.handleError);
+  }
+
+  public assignMeasure(measureId:any,departments:any[]){
+    return this.http.post(this.baseUrl + "/assign/measure/" + measureId + "/departments", { 'departments': departments })
     .map(this.extractData)
     .catch(this.handleError);
   }
