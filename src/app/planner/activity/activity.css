@@ -1,3 +1,42 @@
-/* tr, td{
-  border:0px !important;
+/* .flex{
+
+  box-shadow:inset 0 0 5px gray;
+  padding:2px;
+}
+.flex_item1{
+  flex: 1;
+}
+.pa_flex1 {
+  flex-direction: row;
+}
+.pa_flex2{
+  flex: 2;
+}
+.pa_flex1_item1 {
+  flex: 1;
+}
+
+.pa_flex1_item2 {
+}
+
+.pa_flex2 {
+  flex-direction: column;
+}
+
+.pa_flex2_item1 {
+  flex: 1;
+}
+
+.pa_flex2_item2 {
+  flex: 2;
+}
+
+.pa_flex3 {
+  flex-direction: column;
+}
+
+
+
+.pa_flex2b{
+
 } */
