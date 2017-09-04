@@ -2,6 +2,9 @@ import {Component} from '@angular/core';
 import { UniversityService } from "../../shared/UTI.service";
 import { FormGroup, FormBuilder, Validators, FormArray } from "@angular/forms";
 import { StorageService } from "../../shared/storage.service";
+
+declare let $:any;
+
 @Component({
   selector:'initiatives',
   templateUrl:'./initiative.html',
@@ -9,8 +12,10 @@ import { StorageService } from "../../shared/storage.service";
 })
 export class InitiativeComponent{
   public goals:any[];
+  public goalsCopy:any[];
   public objectives:any[];
   public initiativeForm: FormGroup;
+  public isUpdating:boolean = true;
   public quarter:any[] = ["Q1","Q2","Q3","Q4"];
   constructor(public orgService:UniversityService, 
               public formBuilder: FormBuilder,
@@ -22,9 +27,26 @@ export class InitiativeComponent{
               this.initiativeForm = this.initForm();
   }
 
+  emptySearchResult:any;
+  search(key:any){
+    this.goals = this.goalsCopy;
+    let val = key.target.value;
+    if (val && val.trim() != '') {
+      this.emptySearchResult = false;
+      this.goals = this.goalsCopy.filter((item: any) => {
+        return (item.objective.toLowerCase().indexOf(val.toLowerCase()) > -1);
+      })
+      if (this.goals.length === 0)
+        this.emptySearchResult = true;
+      else
+        this.emptySearchResult = false;
+    }
+  }
+
   getInitiative(){
     this.orgService.getInitiatives().subscribe((response:any)=>{
       this.goals = response;
+      this.goalsCopy = response;
     });
   }
 
@@ -103,15 +125,39 @@ export class InitiativeComponent{
     }
   }
 
-  selectedObjective:any;
   submitInitiative() {
-    // this.initiativeForm.value['objectiveId'] = this.selectedObjective.id;
+    if(!this.isUpdating)
     this.orgService.addInitiative(this.initiativeForm.value).subscribe((res:any) => {
       this.getInitiative();
-      // $('#initiativeModal').modal('hide');
-      this.initForm();
+      $('#initiativeModal').modal('show');
+      // this.initForm();
+      
+      this.initiativeForm.controls["initiative"].reset();
     }, err => {
       console.log(err);
     });
+    if(this.isUpdating)
+    if(confirm("Are you sure you want to update this Initiative?"))
+    this.orgService.updateInitiative(this.selectedInitiative.initiativeId,this.initiativeForm.value).subscribe((res:any)=>{
+      console.log(res);
+      this.getInitiative();
+      $('#initiativeModal').modal('show');
+      this.isUpdating=false;
+    })
+  }
+
+  deleteInitiative(initiativeId:any,initiatives:any[],index:any){
+    if(confirm("Are you sure you want to delete this Initiative?"))
+    this.orgService.deleteInitiative(initiativeId).subscribe((res:any)=>{
+      console.log(res);
+      initiatives.splice(index,1);
+    })
+  }
+  selectedInitiative:any;
+  updateInitiative(objectiveId:any,initiative:any){
+    this.isUpdating=true;
+    this.selectedInitiative = initiative;
+    this.initiativeForm.controls["objectiveId"].patchValue(objectiveId);
+    this.initiativeForm.controls["initiative"].patchValue(initiative.initiative);
   }
 }

@@ -1,18 +1,18 @@
 <nav class="navbar navbar-default navbar-fixed-top menuBar">
   <div class="container-fluid">
     <ul class="nav navbar-nav">
-      <li class="active"><a routerLink="./home">Home</a></li>
-      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown">Strategic plan<span class="caret"></span></a>
+      <li routerLinkActive="active"><a routerLink="./home">Home</a></li>
+      <li routerLinkActive="active" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown">Strategic plan<span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a routerLink="./strategic-goal">Strategic goals</a></li>
           <li><a routerLink="./initiatives">Proposed Initiatives</a></li>
           <li><a routerLink="./activities" >Proposed Activities</a></li>
-          <li><a routerLink="./spi" >Strategic Performance Indicators</a></li>
-          <li><a routerLink="./measures" >Operational Performance Indicators</a></li>
+          <li><a routerLink="./measures" >Proposed Operational Performance Indicators</a></li>
+          <li><a routerLink="./spi" >Strategic Performance Indicators</a></li>          
         </ul>
       </li>
-      <li><a routerLink="./home">Operational Performance Indicators</a></li>
       <li><a routerLink="./home">Action plan</a></li>
+      <li><a routerLink="/login" (click)="logout()">Logout</a></li>      
     </ul>
   </div>
 </nav>
