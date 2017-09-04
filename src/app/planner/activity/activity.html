@@ -1,120 +1,91 @@
 <div class="container">
-  <div class="panel-group" id="accordion">
-    <div class="panel panel-default">
-      <div class="panel-heading rgCommandRow"><span style="cursor:pointer;" data-toggle="collapse" data-parent="#accordion" href="#collapse1"><i class="glyphicon glyphicon-collapse-up"></i>Edit Section</span>
-        <span class="pull-right" style="cursor:pointer">
-          <div class="ctooltip">
-            <i class="glyphicon glyphicon-remove"></i>
-            <span class="ctooltiptext">Close</span>
-          </div>
-        </span>
-      </div>
-      <div id="collapse1" class="panel-collapse collapse">
-        <div class="panel-body">
-          <form [formGroup]="activityForm" (submit)="submitActivity()">
-            <div class="row">
-              <div class="col-lg-6 col-xs-12 col-sm-12">
-                <div class="form-group">
-                  <label for="sel1">Select Goal:</label>
-                  <select class="form-control" id="sel1" formControlName="objectiveId" (ngModelChange)="getInitiative($event)">
-                      <option *ngFor="let objective of objectives;let i=index;" [value]="objective.objectiveId">{{i+1}}.{{objective.objective}}</option>
-                    </select>
-                </div>
-              </div>
-              <div class="col-lg-6 col-xs-12 col-sm-12">
-                <div class="form-group">
-                  <label for="sel1">Select Initiative:</label>
-                  <select class="form-control" id="sel1" formControlName="initiativeId">
-                      <option *ngFor="let initiative of initiatives;let j=index;" [value]="initiative.initiativeId">{{j+1}}.{{initiative.initiative}}</option>
-                    </select>
-                </div>
-              </div>
-              <div class="col-lg-12 col-xs-12 col-sm-12">
-                <div class="form-group">
-                  <label>Activity</label>
-                  <textarea class="form-control" rows="2" formControlName="activity"></textarea>
-                </div>
-              </div>
-            </div>
-            <button type="submit" class="btn btn-success" [disabled]="activityForm.invalid">Submit</button>
-            <button type="button" class="btn btn-default btn-danger" (click)="activityForm.reset();isUpdating=false;">Clear</button>
-          </form>
-        </div>
-      </div>
+  <div class="panel panel-default">
+    <div class="panel-heading rgCommandRow">Edit Section
+      <span class="pull-right" style="cursor:pointer">
+        <div class="ctooltip">
+          <i class="glyphicon glyphicon-remove"></i>
+          <span class="ctooltiptext">Close</span>
     </div>
-    <div class="panel panel-default">
-      <div class="panel-heading rgCommandRow"><span style="cursor:pointer;" data-toggle="collapse" data-parent="#accordion" href="#collapse2">Proposed Activities</span>
-        <span class="pull-right" style="cursor:pointer">
-          <div class="ctooltip">
-            <i class="glyphicon glyphicon-plus"></i>
-            <span class="ctooltiptext">Add Activity</span>
+    </span>
+  </div>
+  <div class="panel-body">
+    <form [formGroup]="activityForm" (submit)="submitActivity()">
+      <div class="row">
+        <div class="col-lg-6 col-xs-12 col-sm-12">
+          <div class="form-group">
+            <label for="sel1">Select Goal:</label>
+            <select class="form-control" id="sel1" formControlName="objectiveId" (ngModelChange)="getInitiative($event)">
+                <option *ngFor="let objective of objectives;let i=index;" [value]="objective.objectiveId">{{objective.objective}}</option>
+              </select>
           </div>
-        </span>
-      </div>
-      <div id="collapse2" class="panel-collapse collapse in">
-        <div class="panel-body">
-          <table class="table table-hover table-bordered">
-              <colgroup>
-                <col style="width:33%">
-                <col style="width:33%">
-                <col style="width:32%">
-                <col style="width:1%">
-                <col style="width:1%">
-              </colgroup>
-            <thead>
-              <tr>
-                <th class="rgHeader">Goal
-                  <span class="search">
-                    <!-- <form [formGroup]="searchForm" (submit)="onSearch()"> -->
-                    <input type="text" name="search" (keyup)="search($event)"  placeholder="Search..">
-                    <!-- <button type="submit" [disabled]="searchForm.invalid" class="btn glyphicon glyphicon-filter"></button> -->
-                    <!-- </form> -->
-                  </span>
-                </th>
-                <th class="rgHeader">Initiative</th>
-                <th class="rgHeader">Activities</th>
-                <th class="rgHeader"></th>
-                <th class="rgHeader"></th>
-              </tr>
-            </thead>
-            <tbody *ngFor="let goal of goals;let i = index;">
-              <tr>
-                <td style="vertical-align: middle;" [attr.rowspan]="getRowSpan(goal.initiatives)">{{ goal.objective }}</td>
-              </tr>
-              <ng-template let-initiate ngFor [ngForOf]="goal.initiatives" let-j="index">
-                <tr>
-                  <td style="vertical-align: middle;" [attr.rowspan]="initiate.activities.length + 1">{{initiate.initiative}}</td>
-                </tr>
-                <ng-template let-activit ngFor [ngForOf]="initiate.activities" let-k="index">
-                  <tr>
-                    <td style="vertical-align: middle;">{{activit.activity}}</td>
-                    <td style="vertical-align: middle;"><i class="glyphicon glyphicon-edit" style="cursor:pointer;"(click)="updateActivity(goal,initiate,activit)" data-parent="#accordion" data-toggle="collapse" href="#collapse1"></i></td>
-                    <td style="vertical-align: middle;"><i style="cursor:pointer;" class="glyphicon glyphicon-remove" (click)="deleteActivity(activit.activityId,initiate.activities,k)"></i></td>
-                  </tr>
-                </ng-template>
-              </ng-template>
-            </tbody>
-          </table>
+        </div>
+        <div class="col-lg-6 col-xs-12 col-sm-12">
+          <div class="form-group">
+            <label for="sel1">Select Initiative:</label>
+            <select class="form-control" id="sel1" formControlName="initiativeId">
+                <option *ngFor="let initiative of initiatives;let j=index;" [value]="initiative.initiativeId">{{initiative.initiative}}</option>
+              </select>
+          </div>
+        </div>
+        <div class="col-lg-12 col-xs-12 col-sm-12">
+          <div class="form-group">
+            <label>Activity</label>
+            <textarea class="form-control" rows="2" formControlName="activity"></textarea>
+          </div>
         </div>
       </div>
+      <button type="submit" class="btn btn-success" [disabled]="activityForm.invalid">Submit</button>
+      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    </form>
+  </div>
+</div>
+</div>
+<div class="container-fluid">
+<div class="panel-heading rgCommandRow">Proposed Activities
+  <span class="pull-right" style="cursor:pointer">
+        <div class="ctooltip">
+          <i class="glyphicon glyphicon-plus"></i>
+  <span class="ctooltiptext">Add Activity</span>
+</div>
+</span>
+</div>
+
+<div class="jumbotron nopadding ">
+  <div class="d-flex text-center margin flex-header border">
+    <div class="p-2 w-50">
+      <b>Objectives</b>
+    </div>
+    <div class="p-2 w-50">
+      <b>Initiatives</b>
+    </div>
+    <div class="p-2 w-75">
+      <b>Activities</b>
     </div>
   </div>
 
-  <!--popup model-->
-  <div class="modal fade" id="activityModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Confirm</h4>
-        </div>
-        <div class="modal-body">
-          <p>You have successfully added a new Activity.</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal" data-toggle="collapse" data-parent="#accordion" href="#collapse2">Close</button>
+
+  <div class="d-flex padding border" *ngFor="let goal of goals;let i = index;">
+    <div class="p-2 w-50">
+      {{ goal.objective }}
+    </div>
+    <div class="p-3">
+      <div *ngFor="let initiate of goal.initiatives;let j=index;">
+        <div class="d-flex innerFlex border">
+          <div class="p-2 w-50">
+            <span>{{initiate.initiative}}</span>
+          </div>
+          <ol class="p-2 w-75">
+            <li *ngFor="let activit of initiate.activities;let k=index;">
+              <span>{{activit.activity}}</span>
+            </li>
+          </ol>
         </div>
       </div>
     </div>
   </div>
 </div>
+</div>
+
+
+
+

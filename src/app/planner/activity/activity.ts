@@ -21,6 +21,7 @@ export class ActivityComponent implements OnInit,AfterViewInit{
   public objectiveIndex:any[]=[];
   public initiatives:any[];
   public isUpdating:boolean = false;
+
   constructor(public orgService:UniversityService,
               public formBuilder: FormBuilder,
               public commonService:StorageService){
@@ -39,8 +40,6 @@ export class ActivityComponent implements OnInit,AfterViewInit{
   ngAfterViewInit(){
 
   }
-
-
   getActivities(){
     this.orgService.getActivities().subscribe((response:any)=>{
       this.goals = response;
