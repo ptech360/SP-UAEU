@@ -15,7 +15,7 @@ export class InitiativeComponent{
   public goalsCopy:any[];
   public objectives:any[];
   public initiativeForm: FormGroup;
-  public isUpdating:boolean = true;
+  public isUpdating:boolean = false;
   public quarter:any[] = ["Q1","Q2","Q3","Q4"];
   constructor(public orgService:UniversityService, 
               public formBuilder: FormBuilder,

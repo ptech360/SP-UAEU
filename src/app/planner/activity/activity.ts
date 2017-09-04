@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { UniversityService } from "../../shared/UTI.service";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { StorageService } from "../../shared/storage.service";
@@ -10,14 +10,16 @@ declare let $:any;
   templateUrl:'./activity.html',
   styleUrls:['./activity.css','./../planner.component.css']
 })
-export class ActivityComponent implements OnInit{
-  [x: string]: any;
-  // public goals: any[];
-  // public activityForm:FormGroup;
-  // public quarter:any[] = ["Q1","Q2","Q3","Q4"];
-  // public objectives:any[];
-  // public objectiveIndex:any[]=[];
-  // public initiatives:any[];
+export class ActivityComponent implements OnInit,AfterViewInit{
+  // [x: string]: any;
+  public goals: any[];
+  public goalsCopy: any[];
+  
+  public activityForm:FormGroup;
+  public quarter:any[] = ["Q1","Q2","Q3","Q4"];
+  public objectives:any[];
+  public objectiveIndex:any[]=[];
+  public initiatives:any[];
   public isUpdating:boolean = false;
   constructor(public orgService:UniversityService,
               public formBuilder: FormBuilder,
@@ -32,6 +34,10 @@ export class ActivityComponent implements OnInit{
   
   ngOnInit(){
     this.getActivities();
+  }
+
+  ngAfterViewInit(){
+
   }
 
 

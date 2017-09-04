@@ -12,14 +12,16 @@ declare let $:any;
   styleUrls:['./measure.css','./../planner.component.css']
 })
 export class MeasureComponent implements AfterViewInit{
-  [x: string]: any;
-  // objectives: any;
-  // initiatives: any;
-  // activities: any;
-  // departments:any;
-  // isUpdating:boolean=false;
-  // public goals:any;  
-  // public quarter:any[] = ["Q1","Q2","Q3","Q4"];
+  // [x: string]: any;
+  objectives: any;
+  initiatives: any;
+  activities: any;
+  departments:any;
+  isUpdating:boolean=false;
+  public goals:any; 
+  public goalsCopy:any;  
+  
+  public quarter:any[] = ["Q1","Q2","Q3","Q4"];
   public measureForm: FormGroup;
   public quarters:any[] =[
     {
