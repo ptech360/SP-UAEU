@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { UniversityService } from "../../shared/UTI.service";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { StorageService } from "../../shared/storage.service";
@@ -7,7 +7,7 @@ import { StorageService } from "../../shared/storage.service";
   templateUrl:'./activity.html',
   styleUrls:['./activity.css','./../planner.component.css']
 })
-export class ActivityComponent implements OnInit{
+export class ActivityComponent implements OnInit,AfterViewInit{
   public goals:any[];
   public activityForm:FormGroup;
   public quarter:any[] = ["Q1","Q2","Q3","Q4"];
@@ -21,6 +21,9 @@ export class ActivityComponent implements OnInit{
               });
               
               this.activityForm = this.setActivity();
+  }
+
+  ngAfterViewInit(){
   }
 
   getActivities(){
