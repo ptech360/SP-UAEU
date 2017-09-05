@@ -65,6 +65,9 @@ selectedQuarter:any = 0;
   }
 
   ngAfterViewInit(){
+    $(document).ready(function(){
+      $('[data-toggle="tooltip"]').tooltip(); 
+    });
     $("#myModal").on('hidden.bs.modal', function (e:any) {
       $(this).find("input[type=checkbox], input[type=radio]")
       .prop("checked", "")

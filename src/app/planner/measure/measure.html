@@ -1,12 +1,9 @@
-<div class="">
-  <div class="panel-group" id="accordion">
+<div class="container-fluid">
+  <!-- <div class="panel-group" id="accordion"> -->
   <div class="panel panel-default">
-    <div class="panel-heading rgCommandRow"><span style="cursor:pointer;" data-toggle="collapse" data-parent="#accordion" href="#collapse1"><i class="glyphicon glyphicon-collapse-up"></i>Edit Section</span>
-      <span class="pull-right" style="cursor:pointer">
-        <div class="ctooltip">
-          <i class="glyphicon glyphicon-remove"></i>
-          <span class="ctooltiptext">Close</span>
-        </div>
+    <div class="panel-heading rgCommandRow"><span style="cursor:pointer;" data-toggle="collapse" data-parent="#accordion" href="#collapse1">Edit Section</span>
+      <span class="pull-right" style="cursor:pointer" data-toggle="tooltip" data-placement="auto" title="collapse">
+        <i class="glyphicon glyphicon-collapse-up" data-toggle="collapse" data-parent="#accordion" href="#collapse1"></i>
       </span>
     </div>
     <div id="collapse1" class="panel-collapse collapse">
@@ -193,14 +190,14 @@
                   <td style="vertical-align: middle;text-transform: capitalize;">{{msr.frequency}}</td>
                   <td style="vertical-align: middle;text-transform: capitalize;">
                     <ul style="list-style:none;padding:0px;">
-                      <li *ngFor="let dept of msr.assignedDepartments;let d = index">{{dept.department}}</li>
+                      <li *ngFor="let dept of msr.assignedDepartments;let d = index">{{dept.department}}, </li>
                     </ul>
-                    <span>None</span>
+                    <span *ngIf="!msr.assignedDepartments.length">None</span>
                   </td>
                   <td style="vertical-align:middle;">10000</td>
                   <td style="vertical-align: middle;"><i class="glyphicon glyphicon-edit" style="cursor:pointer;"(click)="updateMeasure(goal,initiate,activit,msr)" data-parent="#accordion" data-toggle="collapse" href="#collapse1"></i></td>
                   <td style="vertical-align: middle;"><i style="cursor:pointer;" class="glyphicon glyphicon-remove" (click)="deleteMeasure(msr.measureId,activit.measures,l)"></i></td>
-                  <td style="vertical-align: middle;cursor:pointer;"><a data-toggle="modal" data-target="#myModal" (click)="selectedMeasureId=msr.measureId">Assign</a></td>
+                  <td style="vertical-align: middle;cursor:pointer;"><a data-toggle="modal" data-target="#myModal" (click)="selectedMeasureId=msr.measureId;selectedMeasuresDept = msr.assignedDepartments">Assign</a></td>
                 </tr>
               </ng-template>
             </ng-template>
@@ -210,10 +207,10 @@
     </div>
     </div>
   </div>
-  </div>
+  <!-- </div> -->
 
   <!-- Modal -->
-  <div class="modal fade" id="myModal" role="dialog">
+  <div class="modal fade" id="myModal" role="dialog" *ngIf="selectedMeasuresDept">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
@@ -224,7 +221,7 @@
           <div class="row">
             <div class="col-sm-6">
               <div class="radio">
-                <label><input type="radio" name="optradio"> All</label>
+                <label><input type="radio" name="optradio"> All(Institutional Units)</label>
               </div>
               <div class="radio">
                 <label><input type="radio" name="optradio">Select</label>
