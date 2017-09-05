@@ -19,6 +19,9 @@
 .p-3{
   flex:2;
 }
+.p-4{
+  flex:3;
+}
 .p-3 span{
   padding:5px;
 }
@@ -41,4 +44,23 @@ ol, ul {
 }
 .jumbotron{
   background:rgb(248, 242, 255);
+}
+.initiative{
+  padding:15px;
+}
+.btn-del, .btn-edit{
+  color:#3b548c;
+}
+.btn-del:hover{
+  color:#F44336;
+}
+.btn-edit:hover{
+  color:#4CAF50;
+}
+.border-left{
+  border-left:1px solid rgba(86,61,124,.5);
+  margin-left: -1px;
+}
+.border-right{
+  border-right:1px solid rgba(86,61,124,.5);
 }
