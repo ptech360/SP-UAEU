@@ -192,9 +192,10 @@
                   <td style="vertical-align: middle;">{{msr.measure}}</td>
                   <td style="vertical-align: middle;text-transform: capitalize;">{{msr.frequency}}</td>
                   <td style="vertical-align: middle;text-transform: capitalize;">
-                    <span>Legal Affairs Office,</span><br>
-                    <span>Vice Chancellor Office,</span><br>
-                    <span>College of Medicine and Health Sciences</span>
+                    <ul style="list-style:none;padding:0px;">
+                      <li *ngFor="let dept of msr.assignedDepartments;let d = index">{{dept.department}}</li>
+                    </ul>
+                    <span>None</span>
                   </td>
                   <td style="vertical-align:middle;">10000</td>
                   <td style="vertical-align: middle;"><i class="glyphicon glyphicon-edit" style="cursor:pointer;"(click)="updateMeasure(goal,initiate,activit,msr)" data-parent="#accordion" data-toggle="collapse" href="#collapse1"></i></td>
