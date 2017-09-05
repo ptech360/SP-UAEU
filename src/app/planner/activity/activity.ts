@@ -31,14 +31,15 @@ export class ActivityComponent implements OnInit,AfterViewInit{
               
               this.activityForm = this.setActivity();
   }
-
-  
+    
   ngOnInit(){
     this.getActivities();
   }
 
   ngAfterViewInit(){
-
+    $(document).ready(function(){
+      $('[data-toggle="tooltip"]').tooltip(); 
+    });
   }
   getActivities(){
     this.orgService.getActivities().subscribe((response:any)=>{
@@ -146,6 +147,7 @@ export class ActivityComponent implements OnInit,AfterViewInit{
   }
   seletedActivity:any;
   updateActivity(objective:any,initiative:any,activity:any){
+    $("#collapse1").collapse('show');
     this.isUpdating = true;
     this.seletedActivity = activity;
     this.activityForm.controls["objectiveId"].patchValue(objective.objectiveId);
