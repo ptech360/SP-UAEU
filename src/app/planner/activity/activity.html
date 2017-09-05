@@ -71,10 +71,10 @@
     <div class="p-3">
       <div *ngFor="let initiate of goal.initiatives;let j=index;">
         <div class="d-flex innerFlex border">
-          <div class="p-2 w-50">
+          <div class="p-2 w-50 border-right">
             <span>{{initiate.initiative}}</span>
           </div>
-          <div class="p-3">
+          <div class="p-3 border-left">
             <div class="initiative" *ngFor="let activit of initiate.activities;let k=index;">
               <div class="row">
                 <div class="col-lg-10 col-sm-10">
