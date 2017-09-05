@@ -1,8 +1,9 @@
 
 /* Variables */
 :root{
-        --color1: #d6c7e8;
-        --color2: rgb(248, 242, 255);
+        --color0        : #f2f3f8;
+        --color1        : #d6c7e8;
+        --color2        : rgb(248, 242, 255);
         --button-color1 : #3b548c;
         --button-color2 : #F44336;
         --button-color3 : #4CAF50;
@@ -13,7 +14,9 @@
 }
 
 /* end of variables  */
-
+body{
+        background: var(--color0);
+}
 .padding10{
         padding:10px;
 }

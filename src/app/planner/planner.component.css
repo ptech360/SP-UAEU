@@ -1,6 +1,25 @@
-.menuBar{
-  border: 1px solid #6788be;
-  background-color: #93b4df;
+nav{
+  background: #262734;
+  box-shadow: 0px 1px 15px 1px rgb(94, 97, 138);
+}
+nav a{
+  color:white;
+}
+.nav>li>a:focus, .nav>li>a:hover , .nav>li>a:active{
+  text-decoration: none;
+  background-color: #eee;
+  color:#262734;
+}
+.dropdown-menu{
+  top: 125%;
+  border: none;
+  box-shadow: 0 6px 12px rgba(38, 39, 52, 0.52);
+  background-color: rgba(38, 39, 52, 0.78);
+}
+.dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover {
+  color: #262734 !important;
+  text-decoration: none;
+  background-color: #f5f5f5;
 }
 .rgHeader, .RadGrid_Web20 th.rgResizeCol {
   border: 1px solid;
