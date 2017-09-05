@@ -14,6 +14,12 @@
 
 /* end of variables  */
 
+.padding10{
+        padding:10px;
+}
+.margin-1{
+        margin:-1px;
+}
 /* FLexbox */
 .nopadding {
         padding: 0px !important;

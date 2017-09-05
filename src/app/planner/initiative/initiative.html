@@ -1,4 +1,4 @@
-<div class="">
+<div class="container-fluid">
   <div class="panel-group" id="accordion">
     <div class="panel panel-default">
       <div class="panel-heading rgCommandRow"><span style="cursor:pointer;" data-toggle="collapse" data-parent="#accordion" href="#collapse1"><i class="glyphicon glyphicon-collapse-up"></i>Edit Section</span>
@@ -184,38 +184,45 @@
         </span>
       </div>
       <div id="collapse2" class="panel-collapse collapse in">
-      <div class="panel-body">
-        <table class="table table-hover table-bordered">
-          <thead>
-            <tr>
-              <th class="rgHeader">Goal
-                <span class="search">
-                  <!-- <form [formGroup]="searchForm" (submit)="onSearch()"> -->
-                  <input type="text" name="search" (keyup)="search($event)"  placeholder="Search..">
-                  <!-- <button type="submit" [disabled]="searchForm.invalid" class="btn glyphicon glyphicon-filter"></button> -->
-                  <!-- </form> -->
-                </span>
-              </th>
-              <th class="rgHeader">Initiative</th>
-              <th class="rgHeader"></th>
-              <th class="rgHeader"></th>
-            </tr>
-          </thead>
-          <tbody *ngFor="let goal of goals;let i = index;">
-            <tr>
-              <td [attr.rowspan]="goal.initiatives.length+1" style="vertical-align: middle;">{{goal.objective}}</td>
-            </tr>
-            <ng-template let-initiate ngFor [ngForOf]="goal.initiatives" let-j="index">
-              <tr>
-                <td style="vertical-align: middle;">{{initiate.initiative}}</td>
-                <td style="vertical-align: middle;"><i class="glyphicon glyphicon-edit" style="cursor:pointer;"(click)="updateInitiative(goal.objectiveId,initiate)" data-parent="#accordion" data-toggle="collapse" href="#collapse1"></i></td>
-                <td style="vertical-align: middle;"><i style="cursor:pointer;" class="glyphicon glyphicon-remove" (click)="deleteInitiative(initiate.initiativeId,goal.initiatives,j)"></i></td>
-              </tr>
-            </ng-template>
-            
-          </tbody>
-        </table>
-      </div>
+      <!-- <div class="panel-body"> -->
+        <div class="jumbotron nopadding border">
+            <div class="flex-header border">
+              <div class="row">
+              <div class="text-center  col-lg-4 col-xs-4">
+                <b>Goals</b>
+              </div>
+              <div class="text-center  col-lg-7 col-xs-7">
+                <b>Initiatives</b>
+              </div>          
+              </div>
+
+            </div>        
+          <div class="d-flex padding border" *ngFor="let goal of goals;let i = index;">
+              <div class="p-2">
+                  {{goal.objective}}
+              </div>
+              <div class="p-3 margin-1">
+                <div *ngFor="let initiate of goal.initiatives; let j=index" class="border padding10">
+                    <div class="row">
+                        <div class="col-lg-10 col-sm-10">
+                            {{initiate.initiative}}
+                        </div>
+                        <div class="col-lg-1 col-xs-1">
+                          <span data-toggle="tooltip" data-placement="auto" title="Edit">
+                              <i class="glyphicon glyphicon-edit btn-edit" style="cursor:pointer;"(click)="updateInitiative(goal.objectiveId,initiate)" data-parent="#accordion" data-toggle="collapse" href="#collapse1"></i>
+                          </span>
+                        </div>
+                        <div class="col-lg-1 col-xs-1">
+                          <span data-toggle="tooltip" data-placement="auto" title="Delete">
+                              <i style="cursor:pointer;" class="glyphicon glyphicon-remove btn-del" (click)="deleteInitiative(initiate.initiativeId,goal.initiatives,j)"></i>    
+                          </span>
+                        </div>                
+                      </div>
+                </div>
+              </div>
+          </div>
+        </div>
+      <!-- </div> -->
       </div>
     </div>
   </div>
