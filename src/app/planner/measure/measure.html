@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <!-- <div class="panel-group" id="accordion"> -->
-  <div class="panel panel-default">
-    <div class="panel-heading rgCommandRow"><span style="cursor:pointer;" data-toggle="collapse" data-parent="#accordion" href="#collapse1">Edit Section</span>
+  <div class="panel">
+    <div class="panel-heading background-3"><span style="cursor:pointer;" data-toggle="collapse" data-parent="#accordion" href="#collapse1">Edit Section</span>
       <span class="pull-right" style="cursor:pointer" data-toggle="tooltip" data-placement="auto" title="collapse">
         <i class="glyphicon glyphicon-collapse-up" data-toggle="collapse" data-parent="#accordion" href="#collapse1"></i>
       </span>
@@ -128,8 +128,8 @@
     </div>
   </div>
 
-  <div class="panel panel-default">
-    <div class="panel-heading rgCommandRow"><span style="cursor:pointer;" data-toggle="collapse" data-parent="#accordion" href="#collapse2">Proposed Operational Performance Indicators</span>
+  <div class="panel">
+    <div class="panel-heading background-4"><span style="cursor:pointer;" data-toggle="collapse" data-parent="#accordion" href="#collapse2">Proposed Operational Performance Indicators</span>
       <span class="pull-right" style="cursor:pointer">
         <div class="ctooltip">
           <i class="glyphicon glyphicon-plus"></i>
@@ -138,7 +138,6 @@
       </span>
     </div>
     <div id="collapse2" class="panel-collapse collapse in">
-    <div class="panel-body">
       <!-- <table class="table table-hover table-bordered">
         <colgroup>
           <col style="width:18%">
@@ -172,23 +171,23 @@
         </thead>
       </table> -->
       <div class="d-flex border flex-header ">
-          <div class="p-2 border-right">
+          <div class="p-2 border">
              Goal
              <span class="search">
                 <input type="text" name="search" (keyup)="search($event)"  placeholder="Search..">
             </span>
           </div>
-          <div class="p-3 border-left">
+          <div class="p-3 border">
             <div class="d-flex">
-              <div class="p-2 border-right">
+              <div class="p-2 border">
                   Initiative
               </div>
-              <div class="p-3 border-left">
+              <div class="p-3 border">
                   <div class="d-flex">
-                      <div class="p-2 border-right">
+                      <div class="p-2 border">
                           Activities
                       </div>
-                      <div class="p-3 border-left">
+                      <div class="p-3 border">
                         <div class="d-flex">
                             <div class="p-2" style="flex-basis:30%;">
                                 OPI
@@ -208,32 +207,31 @@
                             <div class="p-2" style="flex-basis:5%;">
                                 Delete
                             </div>
-                            <div class="p-2text-center " style="flex-basis:10%;">
+                            <div class="p-2 text-center " style="flex-basis:10%;">
                                 Assign
                             </div>
                           </div>
-        
                       </div>
                   </div>
               </div>
             </div>
           </div>
         </div>
-<div class="d-flex border" *ngFor="let goal of goals;let i = index;">
-  <div class="p-2 border-right">
+<div class="d-flex margin-1 body-background" *ngFor="let goal of goals;let i = index;">
+  <div class="p-2 border">
       {{ goal.objective }}
   </div>
-  <div class="p-3 border-left">
+  <div class="p-3 border">
     <div class="d-flex" *ngFor="let initiate of goal.initiatives;let j=index">
-      <div class="p-2 border-right">
+      <div class="p-2 border-bottom">
           {{initiate.initiative}}
       </div>
-      <div class="p-3 border-left">
+      <div class="p-3 border no-bottom-border">
           <div class="d-flex" *ngFor="let activit of initiate.activities;let k=index">
-              <div class="p-2 border-right">
+              <div class="p-2 border-bottom">
                   {{activit.activity}}
               </div>
-              <div class="p-3 border-left">
+              <div class="p-3">
                 <!-- <div class="row" *ngFor="let msr of activit.measures;let l=index">
                   <div class="col-lg-3 col-xs-3">
                       {{msr.measure}}
@@ -261,28 +259,28 @@
                   </div>
                 </div> -->
                 <div class="d-flex height-100" *ngFor="let msr of activit.measures;let l=index">
-                    <div class="p-2" style="flex-basis:30%;">
+                    <div class="p-2 border no-bottom-border" style="flex-basis:30%;">
                         {{msr.measure}}
                     </div>
-                    <div class="p-2 text-center" style="flex-basis:15%;">
+                    <div class="p-2 text-center border no-bottom-border" style="flex-basis:15%;">
                         {{msr.frequency}}
                     </div>    
-                    <div class="p-2" style="flex-basis:25%;">
+                    <div class="p-2 border no-bottom-border" style="flex-basis:25%;">
                         <ul style="list-style:none;padding:0px;">
                           <li *ngFor="let dept of msr.assignedDepartments;let d = index">{{dept.department}}, </li>
                         </ul>
                         <span *ngIf="!msr.assignedDepartments.length">None</span>
                     </div>
-                    <div class="p-2 text-center" style="flex-basis:10%;">
+                    <div class="p-2 text-center border no-bottom-border" style="flex-basis:10%;">
                         10000
                     </div>
-                    <div class="p-2" style="flex-basis:5%;">
+                    <div class="p-2 border-bottom" style="flex-basis:5%;">
                         <i class="glyphicon glyphicon-edit" style="cursor:pointer;"(click)="updateMeasure(goal,initiate,activit,msr)" data-parent="#accordion" data-toggle="collapse" href="#collapse1"></i>
                     </div>
-                    <div class="p-2" style="flex-basis:5%;">
+                    <div class="p-2 border-bottom" style="flex-basis:5%;">
                         <i style="cursor:pointer;" class="glyphicon glyphicon-remove" (click)="deleteMeasure(msr.measureId,activit.measures,l)"></i>
                     </div>
-                    <div class="p-2text-center " style="flex-basis:10%;">
+                    <div class="p-2 text-center border-bottom" style="flex-basis:10%;">
                         <a data-toggle="modal" data-target="#myModal" (click)="selectedMeasureId=msr.measureId;selectedMeasuresDept = msr.assignedDepartments">Assign</a>
                     </div>
                   </div>
@@ -293,11 +291,6 @@
     </div>
   </div>
 </div>
-
-
-
-
-    </div>
     </div>
   </div>
   <!-- </div> -->

@@ -21,7 +21,7 @@ nav a{
   text-decoration: none;
   background-color: #f5f5f5;
 }
-.rgHeader, .RadGrid_Web20 th.rgResizeCol {
+/* .rgHeader, .RadGrid_Web20 th.rgResizeCol {
   border: 1px solid;
   border-color: #fff #6e8ec2 #204582 #355a99;
   border-top-width: 0;
@@ -30,7 +30,7 @@ nav a{
 .rgCommandRow {
   background: #3b548c;
   color: #fff;
-}
+} */
 .unexistance td{
   padding: 8px;
   border-top: 1px solid #ddd;
