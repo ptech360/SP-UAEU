@@ -87,6 +87,8 @@ p-9{
         padding: 10px !important;
         font-size: var (--large-font);
         background: var(--color1);
+        font-weight:bold;
+        text-align:center;
 }
 
 ol,
