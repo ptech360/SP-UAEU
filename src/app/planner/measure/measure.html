@@ -139,7 +139,7 @@
     </div>
     <div id="collapse2" class="panel-collapse collapse in">
     <div class="panel-body">
-      <table class="table table-hover table-bordered">
+      <!-- <table class="table table-hover table-bordered">
         <colgroup>
           <col style="width:18%">
           <col style="width:18%">
@@ -156,10 +156,7 @@
           <tr>
             <th style="vertical-align: middle;" class="rgHeader">Goal
               <span class="search">
-                <!-- <form [formGroup]="searchForm" (submit)="onSearch()"> -->
                 <input type="text" name="search" (keyup)="search($event)"  placeholder="Search..">
-                <!-- <button type="submit" [disabled]="searchForm.invalid" class="btn glyphicon glyphicon-filter"></button> -->
-                <!-- </form> -->
               </span>
             </th>
             <th style="vertical-align: middle;" class="rgHeader">Initiative</th>
@@ -173,40 +170,52 @@
             <th style="vertical-align: middle;" class="rgHeader"></th>
           </tr>
         </thead>
-        <!-- <tbody *ngFor="let goal of goals;let i = index;">
-          <tr>
-            <td style="vertical-align: middle;" [attr.rowspan]="getRowSpan(goal.initiatives)">{{ goal.objective }}</td>
-          </tr>
-          <ng-template let-initiate ngFor [ngForOf]="goal.initiatives" let-j="index">
-            <tr>
-              <td style="vertical-align: middle;" [attr.rowspan]="getRowSpanOfIni(initiate.activities)">{{initiate.initiative}}</td>
-            </tr>
-            <ng-template  let-activit ngFor [ngForOf]="initiate.activities" let-k="index">
-              <tr>
-                <td style="vertical-align: middle;" [attr.rowspan]="activit.measures.length + 1">
-                  {{activit.activity}}</td>
-              </tr>
-              <ng-template let-msr ngFor [ngForOf]="activit.measures" let-l="index">
-                <tr>
-                  <td style="vertical-align: middle;">{{msr.measure}}</td>
-                  <td style="vertical-align: middle;text-transform: capitalize;">{{msr.frequency}}</td>
-                  <td style="vertical-align: middle;text-transform: capitalize;">
-                    <ul style="list-style:none;padding:0px;">
-                      <li *ngFor="let dept of msr.assignedDepartments;let d = index">{{dept.department}}, </li>
-                    </ul>
-                    <span *ngIf="!msr.assignedDepartments.length">None</span>
-                  </td>
-                  <td style="vertical-align:middle;">10000</td>
-                  <td style="vertical-align: middle;"><i class="glyphicon glyphicon-edit" style="cursor:pointer;"(click)="updateMeasure(goal,initiate,activit,msr)" data-parent="#accordion" data-toggle="collapse" href="#collapse1"></i></td>
-                  <td style="vertical-align: middle;"><i style="cursor:pointer;" class="glyphicon glyphicon-remove" (click)="deleteMeasure(msr.measureId,activit.measures,l)"></i></td>
-                  <td style="vertical-align: middle;cursor:pointer;"><a data-toggle="modal" data-target="#myModal" (click)="selectedMeasureId=msr.measureId;selectedMeasuresDept = msr.assignedDepartments">Assign</a></td>
-                </tr>
-              </ng-template>
-            </ng-template>
-          </ng-template>
-        </tbody> -->
-      </table>
-
+      </table> -->
+      <div class="d-flex border flex-header ">
+          <div class="p-2 border-right">
+             Goal
+          </div>
+          <div class="p-3 border-left">
+            <div class="d-flex">
+              <div class="p-2 border-right">
+                  Initiative
+              </div>
+              <div class="p-3 border-left">
+                  <div class="d-flex">
+                      <div class="p-2 border-right">
+                          Activities
+                      </div>
+                      <div class="p-3 border-left">
+                        <div class="d-flex">
+                            <div class="p-2" style="flex-basis:30%;">
+                                OPI
+                            </div>
+                            <div class="p-2 text-center" style="flex-basis:15%;">
+                                Frequency
+                            </div>    
+                            <div class="p-2" style="flex-basis:25%;">
+                                Departments
+                            </div>
+                            <div class="p-2 text-center" style="flex-basis:10%;">
+                                Cost
+                            </div>
+                            <div class="p-2" style="flex-basis:5%;">
+                                Edit
+                            </div>
+                            <div class="p-2" style="flex-basis:5%;">
+                                Delete
+                            </div>
+                            <div class="p-2text-center " style="flex-basis:10%;">
+                                Assign
+                            </div>
+                          </div>
+        
+                      </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
 <div class="d-flex border" *ngFor="let goal of goals;let i = index;">
   <div class="p-2 border-right">
       {{ goal.objective }}
@@ -221,7 +230,7 @@
               <div class="p-2 border-right">
                   {{activit.activity}}
               </div>
-              <div class="p-3 border-left border-right">
+              <div class="p-3 border-left">
                 <!-- <div class="row" *ngFor="let msr of activit.measures;let l=index">
                   <div class="col-lg-3 col-xs-3">
                       {{msr.measure}}
@@ -248,7 +257,7 @@
                       <a data-toggle="modal" data-target="#myModal" (click)="selectedMeasureId=msr.measureId;selectedMeasuresDept = msr.assignedDepartments">Assign</a>
                   </div>
                 </div> -->
-                <div class="d-flex " *ngFor="let msr of activit.measures;let l=index">
+                <div class="d-flex height-100" *ngFor="let msr of activit.measures;let l=index">
                     <div class="p-2" style="flex-basis:30%;">
                         {{msr.measure}}
                     </div>
