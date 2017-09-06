@@ -79,7 +79,7 @@
           </div>
         </div>
 
-        <div >
+        <div>
           <div class="panel-heading text-center"><b><span class="badge">{{commonService.getData('org_info').cycle[0]}} - {{commonService.getData('org_info').cycle[commonService.getData('org_info').cycle.length-1]}}
                 Annual Target</span></b></div>
           <div class="panel-body no" style="text-align: center;">
@@ -91,6 +91,7 @@
                   <th style="vertical-align: middle;" class="rgHeader" style="text-align: center;">Estimate Cost</th>
                 </tr>              
               </thead>
+
               <tbody *ngFor="let td of measureForm.controls.annualTarget.controls;let n = index;" [formGroupName]="n">
                 <tr>
                   <td style="vertical-align:middle;">{{td.value.year}}</td>
@@ -116,6 +117,7 @@
                   </td>
                 </tr>
               </tbody>
+
             </table>
           </div>
         </div>
@@ -171,7 +173,7 @@
             <th style="vertical-align: middle;" class="rgHeader"></th>
           </tr>
         </thead>
-        <tbody *ngFor="let goal of goals;let i = index;">
+        <!-- <tbody *ngFor="let goal of goals;let i = index;">
           <tr>
             <td style="vertical-align: middle;" [attr.rowspan]="getRowSpan(goal.initiatives)">{{ goal.objective }}</td>
           </tr>
@@ -202,8 +204,87 @@
               </ng-template>
             </ng-template>
           </ng-template>
-        </tbody>
+        </tbody> -->
       </table>
+
+<div class="d-flex border" *ngFor="let goal of goals;let i = index;">
+  <div class="p-2 border-right">
+      {{ goal.objective }}
+  </div>
+  <div class="p-3 border-left">
+    <div class="d-flex" *ngFor="let initiate of goal.initiatives;let j=index">
+      <div class="p-2 border-right">
+          {{initiate.initiative}}
+      </div>
+      <div class="p-3 border-left">
+          <div class="d-flex" *ngFor="let activit of initiate.activities;let k=index">
+              <div class="p-2 border-right">
+                  {{activit.activity}}
+              </div>
+              <div class="p-3 border-left border-right">
+                <!-- <div class="row" *ngFor="let msr of activit.measures;let l=index">
+                  <div class="col-lg-3 col-xs-3">
+                      {{msr.measure}}
+                  </div>
+                  <div class="col-lg-2 col-xs-2">
+                      {{msr.frequency}}
+                  </div>    
+                  <div class="col-lg-3 col-xs-3">
+                      <ul style="list-style:none;padding:0px;">
+                        <li *ngFor="let dept of msr.assignedDepartments;let d = index">{{dept.department}}, </li>
+                      </ul>
+                      <span *ngIf="!msr.assignedDepartments.length">None</span>
+                  </div>
+                  <div class="col-lg-1 col-xs-1">
+                      10000
+                  </div>
+                  <div class="col-lg-1 col-xs-1">
+                      <i class="glyphicon glyphicon-edit" style="cursor:pointer;"(click)="updateMeasure(goal,initiate,activit,msr)" data-parent="#accordion" data-toggle="collapse" href="#collapse1"></i>
+                  </div>
+                  <div class="col-lg-1 col-xs-1">
+                      <i style="cursor:pointer;" class="glyphicon glyphicon-remove" (click)="deleteMeasure(msr.measureId,activit.measures,l)"></i>
+                  </div>
+                  <div class="col-lg-1 col-xs-1">
+                      <a data-toggle="modal" data-target="#myModal" (click)="selectedMeasureId=msr.measureId;selectedMeasuresDept = msr.assignedDepartments">Assign</a>
+                  </div>
+                </div> -->
+                <div class="d-flex " *ngFor="let msr of activit.measures;let l=index">
+                    <div class="p-2" style="flex-basis:30%;">
+                        {{msr.measure}}
+                    </div>
+                    <div class="p-2 text-center" style="flex-basis:15%;">
+                        {{msr.frequency}}
+                    </div>    
+                    <div class="p-2" style="flex-basis:25%;">
+                        <ul style="list-style:none;padding:0px;">
+                          <li *ngFor="let dept of msr.assignedDepartments;let d = index">{{dept.department}}, </li>
+                        </ul>
+                        <span *ngIf="!msr.assignedDepartments.length">None</span>
+                    </div>
+                    <div class="p-2 text-center" style="flex-basis:10%;">
+                        10000
+                    </div>
+                    <div class="p-2" style="flex-basis:5%;">
+                        <i class="glyphicon glyphicon-edit" style="cursor:pointer;"(click)="updateMeasure(goal,initiate,activit,msr)" data-parent="#accordion" data-toggle="collapse" href="#collapse1"></i>
+                    </div>
+                    <div class="p-2" style="flex-basis:5%;">
+                        <i style="cursor:pointer;" class="glyphicon glyphicon-remove" (click)="deleteMeasure(msr.measureId,activit.measures,l)"></i>
+                    </div>
+                    <div class="p-2text-center " style="flex-basis:10%;">
+                        <a data-toggle="modal" data-target="#myModal" (click)="selectedMeasureId=msr.measureId;selectedMeasuresDept = msr.assignedDepartments">Assign</a>
+                    </div>
+                  </div>
+
+              </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
     </div>
     </div>
   </div>

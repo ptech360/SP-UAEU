@@ -2,3 +2,9 @@
   overflow: scroll;
   height: 300px;
 }
+.p-3 {
+  flex: 6 !important;
+}
+.p-3o{
+  flex:2;
+}
