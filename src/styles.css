@@ -33,7 +33,6 @@ body{
 
 .d-flex {
         display: flex;
-        align-items: center;
 }
 
 .innerFlex {
@@ -84,7 +83,6 @@ p-9{
 }
 
 .flex-header {
-        padding: 10px !important;
         font-size: var (--large-font);
         background: var(--color1);
         font-weight:bold;
@@ -472,3 +470,14 @@ opacity: 0;
         margin-left: 99px;
     }
 /* end of loader ========================================================================== */
+
+
+/* Border */
+.no-bottom-border{
+        border-bottom:0px;
+}
+.border-bottom{
+        border-bottom: 1px solid var(--color1); 
+}
+
+/* /border */
