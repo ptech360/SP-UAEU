@@ -6,7 +6,9 @@
         --color2        : rgb(248, 242, 255);
         --color3        : #36a3f7;
         --color4        : #716aca;
-        --color4Text    : #white;
+        --color5        : #34bfa3;
+        --color5Text    : white;
+        --color4Text    : white;
         --color3Text    : white;
         --button-color1 : #3b548c;
         --button-color2 : #F44336;
@@ -30,13 +32,21 @@ body{
 .height-100{
         min-height:100px;
 }
+.background-2{
+        background: var(--color2);
+        color: var(--color2Text);
+}
 .background-3{
         background: var(--color3);
         color: var(--color3Text);
 }
 .background-4{
         background: var(--color4);
-        color: var(--color4Text) !important;
+        color: var(--color4Text);
+}
+.background-5{
+        background: var(--color5) !important;
+        color: var(--color5Text) !important;
 }
 .header-background{
         background: var(--color1);
@@ -112,10 +122,6 @@ ol,
 ul {
         margin-top: 0;
         margin-bottom: 0px;
-}
-
-.jumbotron {
-        background: var(--color2);
 }
 
 .initiative {

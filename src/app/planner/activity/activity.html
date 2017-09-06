@@ -1,6 +1,6 @@
 <div class="container-fluid">
-  <div class="panel panel-default">
-    <div class="panel-heading rgCommandRow">Edit Section
+  <div class="panel">
+    <div class="panel-heading background-3">Edit Section
       <span class="pull-right" style="cursor:pointer" data-toggle="tooltip" data-placement="auto" title="collapse">
           <i class="glyphicon glyphicon-collapse-up" data-toggle="collapse" href="#collapse1"></i>
       </span>
@@ -8,30 +8,30 @@
     <div id="collapse1" class="panel-collapse collapse">
     <div class="panel-body">
       <form [formGroup]="activityForm" (submit)="submitActivity()">
-        <div class="row">
-          <div class="col-lg-6 col-xs-12 col-sm-12">
-            <div class="form-group">
-              <label for="sel1">Select Goal:</label>
-              <select class="form-control" id="sel1" formControlName="objectiveId" (ngModelChange)="getInitiative($event)">
-                  <option *ngFor="let objective of objectives;let i=index;" [value]="objective.objectiveId">{{objective.objective}}</option>
-                </select>
+          <div class="col-lg-6 col-sm-12">
+            <div class="row">
+              <div class="form-group">
+                  <label for="sel1">Select Goal:</label>
+                  <select class="form-control" id="sel1" formControlName="objectiveId" (ngModelChange)="getInitiative($event)">
+                      <option *ngFor="let objective of objectives;let i=index;" [value]="objective.objectiveId">{{objective.objective}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+              <div class="form-group">
+                  <label for="sel1">Select Initiative:</label>
+                  <select class="form-control" id="sel1" formControlName="initiativeId">
+                      <option *ngFor="let initiative of initiatives;let j=index;" [value]="initiative.initiativeId">{{initiative.initiative}}</option>
+                    </select>
+                </div>
             </div>
           </div>
-          <div class="col-lg-6 col-xs-12 col-sm-12">
-            <div class="form-group">
-              <label for="sel1">Select Initiative:</label>
-              <select class="form-control" id="sel1" formControlName="initiativeId">
-                  <option *ngFor="let initiative of initiatives;let j=index;" [value]="initiative.initiativeId">{{initiative.initiative}}</option>
-                </select>
-            </div>
-          </div>
-          <div class="col-lg-12 col-xs-12 col-sm-12">
-            <div class="form-group">
-              <label>Activity</label>
-              <textarea class="form-control" rows="2" formControlName="activity"></textarea>
-            </div>
-          </div>
-        </div>
+          <div class="col-lg-6 col-sm-12">
+              <div class="form-group">
+                  <label>Activity</label>
+                  <textarea class="form-control" rows="5" formControlName="activity"></textarea>
+                </div>
+          </div>    
         <button type="submit" class="btn btn-success" [disabled]="activityForm.invalid">Submit</button>
         <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="activityForm.reset(); isUpdating = false">Clear</button>
       </form>
@@ -39,12 +39,12 @@
     </div>
   </div>
   <div class="panel">
-    <div class="panel-heading rgCommandRow">Proposed Activities
+    <div class="panel-heading background-4">Proposed Activities
       <span class="pull-right" style="cursor:pointer" data-toggle="tooltip" data-placement="auto" title="Add New Activity">
         <i class="glyphicon glyphicon-plus" (click)="activityForm.reset(); isUpdating = false" data-toggle="collapse" href="#collapse1"></i>
       </span>
     </div>
-    <div class="jumbotron nopadding ">
+    <div class="background-2">
       <div class="d-flex text-center margin flex-header border">
         <div class="p-2 w-50">
           <b>Goals</b>

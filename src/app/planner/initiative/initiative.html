@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="panel-group" id="accordion">
-    <div class="panel panel-default">
-      <div class="panel-heading rgCommandRow"><span style="cursor:pointer;" data-toggle="collapse" data-parent="#accordion" href="#collapse1"><i class="glyphicon glyphicon-collapse-up"></i>Edit Section</span>
+    <div class="panel">
+      <div class="panel-heading background-3"><span style="cursor:pointer;" data-toggle="collapse" data-parent="#accordion" href="#collapse1"><i class="glyphicon glyphicon-collapse-up"></i>Edit Section</span>
         <span class="pull-right" style="cursor:pointer">
           <div class="ctooltip">
             <i class="glyphicon glyphicon-remove"></i>
@@ -10,7 +10,6 @@
         </span>
       </div>
       <div id="collapse1" class="panel-collapse collapse">
-      <div class="panel-body">
         <form [formGroup]="initiativeForm" (submit)="submitInitiative()">
           <div class="row">
             <div class="col-lg-6 col-xs-6 col-sm-12">
@@ -171,11 +170,10 @@
           <button type="button" class="btn btn-default btn-danger" (click)="initiativeForm.reset();isUpdating=false;">Clear</button>
         </form>
       </div>
-      </div>
     </div>
 
-    <div class="panel panel-default">
-      <div class="panel-heading rgCommandRow"><span style="cursor:pointer;" data-toggle="collapse" data-parent="#accordion" href="#collapse2">Proposed Initiatives</span>
+    <div class="panel">
+      <div class="panel-heading background-4"><span style="cursor:pointer;" data-toggle="collapse" data-parent="#accordion" href="#collapse2">Proposed Initiatives</span>
         <span class="pull-right" style="cursor:pointer">
           <div class="ctooltip">
             <i class="glyphicon glyphicon-plus"></i>
