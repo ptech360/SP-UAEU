@@ -26,6 +26,12 @@ body{
 .height-100{
         min-height:100px;
 }
+.header-background{
+        background: var(--color1);
+}
+.body-background{
+        background: var(--color2);
+}
 /* FLexbox */
 .nopadding {
         padding: 0px !important;
@@ -83,6 +89,7 @@ p-9{
 }
 
 .flex-header {
+        padding: 10px !important;
         font-size: var (--large-font);
         background: var(--color1);
         font-weight:bold;

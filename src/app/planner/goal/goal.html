@@ -42,9 +42,9 @@
       <div id="collapse2" class="panel-collapse collapse in">
         <div class="panel-body">
           <table class="table table-hover table-bordered">
-            <thead>
+            <thead class="header-background">
               <tr>
-                <th class="rgHeader">Goal
+                <th>Goal
                   <span class="search">
                     <!-- <form [formGroup]="searchForm" (submit)="onSearch()"> -->
                     <input type="text" name="search" (keyup)="searchGoal($event)" placeholder="Search..">
@@ -52,12 +52,12 @@
                     <!-- </form> -->
                   </span>
                 </th>
-                <th class="rgHeader"></th>     
-                <th class="rgHeader"></th>                            
+                <th></th>     
+                <th></th>                            
               </tr>
             </thead>
-            <tbody>
-              <tr><td colspan="3"></td></tr>
+            <tbody class="body-background">
+              <!-- <tr><td colspan="3"></td></tr> -->
               <tr *ngFor="let goal of goals;let i = index;">
                 <td style="vertical-align: middle;">{{goal.objective}}</td>
                 <td style="vertical-align: middle;"><i class="glyphicon glyphicon-edit" style="cursor:pointer;"(click)="updateGoal(goal)" data-parent="#accordion" data-toggle="collapse" href="#collapse1"></i></td>

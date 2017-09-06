@@ -71,15 +71,15 @@
   </div>
   </span>
 </div>
-<div class="panel-body">
-  <table class="table table-bordered">
+<div class="panel-body ">
+  <table class="table table-bordered header-background">
     <thead>
       <tr>
-        <th class="rgHeader">Goal</th>
-        <th class="rgHeader">Performance Indicator</th>
+        <th>Goal</th>
+        <th>Performance Indicator</th>
       </tr>
     </thead>
-    <tbody *ngFor="let spi of spis;let i = index;">
+    <tbody class="body-background" *ngFor="let spi of spis;let i = index;">
       <tr>
         <td [attr.rowspan]="spi.spis.length+1" style="vertical-align: middle;">{{spi.objective}}</td>
       </tr>
