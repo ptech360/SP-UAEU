@@ -4,7 +4,8 @@ import { Http, Headers, RequestOptions } from '@angular/http';
 @Injectable()
 export class StorageService{
   // private url:string = "http://localhost:8080/strategyPlanningV3";
-  public baseUrl: string = "http://planning.ind-cloud.everdata.com/api/";
+  // public baseUrl: string = "http://planning.ind-cloud.everdata.com/api/";
+  public baseUrl: string = "http://localhost:8080/spv4/";
   public hasRole:boolean;
   constructor() { 
     

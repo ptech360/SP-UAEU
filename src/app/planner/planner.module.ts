@@ -16,6 +16,7 @@ import { SharedModule } from "../shared/shared.module";
 					path: 'home',
 					loadChildren: 'app/planner/home/home.module#HomeModule'
 				},
+				{ path: 'strategic-plan', loadChildren: 'app/planner/plan/plan.module#PlanModule'},
 				{ path: 'strategic-goal', loadChildren: 'app/planner/goal/goal.module#GoalModule'},
 				{ path: 'initiatives', loadChildren: 'app/planner/initiative/initiative.module#InitiativeModule'},
 				{ path: 'activities', loadChildren: 'app/planner/activity/activity.module#ActivityModule'},

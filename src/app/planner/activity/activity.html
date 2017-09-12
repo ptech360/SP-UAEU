@@ -1,41 +1,51 @@
 <div class="container-fluid">
   <div class="panel">
-    <div class="panel-heading background-3">Edit Section
+    <div class="panel-heading background-3"><span data-toggle="collapse" href="#collapse1">Edit Section</span>
       <span class="pull-right" style="cursor:pointer" data-toggle="tooltip" data-placement="auto" title="collapse">
           <i class="glyphicon glyphicon-collapse-up" data-toggle="collapse" href="#collapse1"></i>
       </span>
     </div>
     <div id="collapse1" class="panel-collapse collapse">
-    <div class="panel-body">
-      <form [formGroup]="activityForm" (submit)="submitActivity()">
+      <div class="panel-body">
+        <form [formGroup]="activityForm" (submit)="submitActivity()">
+          <div class="row">
           <div class="col-lg-6 col-sm-12">
-            <div class="row">
-              <div class="form-group">
-                  <label for="sel1">Select Goal:</label>
-                  <select class="form-control" id="sel1" formControlName="objectiveId" (ngModelChange)="getInitiative($event)">
-                      <option *ngFor="let objective of objectives;let i=index;" [value]="objective.objectiveId">{{objective.objective}}</option>
-                    </select>
-                </div>
-            </div>
-            <div class="row">
-              <div class="form-group">
-                  <label for="sel1">Select Initiative:</label>
-                  <select class="form-control" id="sel1" formControlName="initiativeId">
-                      <option *ngFor="let initiative of initiatives;let j=index;" [value]="initiative.initiativeId">{{initiative.initiative}}</option>
-                    </select>
-                </div>
+            <div class="form-group">
+              <label for="year">Plan Year:</label>
+              <select id="year" name="year" class="form-control" formControlName="cycleId" (ngModelChange)="getObjective($event)">
+                  <option *ngFor="let c of cycles;let y = index;" [value]="y">{{c.planYear}}: [{{c.startYear}} To {{c.endYear}}] : {{c.description}}</option>
+              </select>
             </div>
           </div>
           <div class="col-lg-6 col-sm-12">
-              <div class="form-group">
-                  <label>Activity</label>
-                  <textarea class="form-control" rows="5" formControlName="activity"></textarea>
-                </div>
-          </div>    
-        <button type="submit" class="btn btn-success" [disabled]="activityForm.invalid">Submit</button>
-        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="activityForm.reset(); isUpdating = false">Clear</button>
-      </form>
-    </div>
+            <div class="form-group">
+              <label for="sel1">Select Goal:</label>
+              <select class="form-control" id="sel1" formControlName="objectiveId" (ngModelChange)="getInitiative($event)">
+                      <option *ngFor="let objective of objectives;let i=index;" [value]="objective.goalId">{{objective.goal}}</option>
+                    </select>
+            </div>
+          </div>
+          <div class="col-lg-6 col-sm-12">
+            <div class="form-group">
+              <label for="sel1">Select Initiative:</label>
+              <select class="form-control" id="sel1" formControlName="initiativeId">
+                      <option *ngFor="let initiative of initiatives;let j=index;" [value]="initiative.initiativeId">{{initiative.initiative}}</option>
+                    </select>
+            </div>
+          </div>
+          <div class="col-lg-6 col-sm-12">
+            <div class="form-group">
+              <label>Activity</label>
+              <textarea class="form-control" rows="5" formControlName="activity"></textarea>
+            </div>
+          </div>
+          <div class="col-lg-12 col-sm-12">
+            <button type="submit" class="btn btn-success" [disabled]="activityForm.invalid">Submit</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="activityForm.reset(); isUpdating = false">Clear</button>
+          </div>
+        </div>
+        </form>
+      </div>
     </div>
   </div>
   <div class="panel">
@@ -44,7 +54,7 @@
         <i class="glyphicon glyphicon-plus" (click)="activityForm.reset(); isUpdating = false" data-toggle="collapse" href="#collapse1"></i>
       </span>
     </div>
-    <div class="background-2">
+    <div class="background-2" *ngIf="goals.length">
       <div class="d-flex text-center margin flex-header border">
         <div class="p-2 w-50">
           <b>Goals</b>
@@ -54,11 +64,11 @@
         </div>
         <div class="p-2 w-75">
           <b>Activities</b>
-        </div>  
+        </div>
       </div>
       <div class="d-flex padding border" *ngFor="let goal of goals;let i = index;">
         <div class="p-2 w-30">
-          {{ goal.objective }}
+          {{ goal.goal }}
         </div>
         <div class="p-3">
           <div *ngFor="let initiate of goal.initiatives;let j=index;">
@@ -70,7 +80,7 @@
                 <div class="initiative" *ngFor="let activit of initiate.activities;let k=index;">
                   <div class="row">
                     <div class="col-lg-10 col-sm-10">
-                        {{activit.activity}}
+                      {{activit.activity}}
                     </div>
                     <div class="col-lg-1 col-xs-1">
                       <span data-toggle="tooltip" data-placement="auto" title="Edit">
@@ -81,7 +91,7 @@
                       <span data-toggle="tooltip" data-placement="auto" title="Delete">
                         <i style="cursor:pointer;" class="glyphicon glyphicon-remove btn-del" (click)="deleteActivity(activit.activityId,initiate.activities,k)"></i>    
                       </span>
-                    </div>                
+                    </div>
                   </div>
                 </div>
               </div>
@@ -90,6 +100,7 @@
         </div>
       </div>
     </div>
+    <p class="text-center" *ngIf="!goals.length" style="padding-top: 5px;">No Activities Added Yet...</p>
   </div>
   <!--popup model-->
   <div class="modal fade" id="activityModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

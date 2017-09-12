@@ -13,11 +13,28 @@ import 'rxjs/add/observable/throw';
 export class UniversityService {
 
   private baseUrl: string = "";
+  private child = new RequestOptions({
+    headers: new Headers({
+      'child': true
+    })
+  });
+
+  private parent = new RequestOptions({
+    headers: new Headers({
+      'parent': true
+    })
+  });
 
   constructor(public http: CustomHttpService,
     public htttp: Http,
     public con: StorageService) {
     this.baseUrl = con.baseUrl + con.getData('user_roleInfo')[0].role;
+  }
+
+  public saveCycle(cycle:any){
+    return this.http.post(this.baseUrl + "/cycle",cycle)
+    .map(this.extractData)
+    .catch(this.handleError);
   }
 
   public orgInitialSetup(data: any) {
@@ -62,6 +79,24 @@ export class UniversityService {
       .catch(this.handleError);
   }
 
+  public getCycles(){
+    return this.http.get(this.baseUrl + "/cycles")
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  public getCycleWithChildren(){
+    return this.http.get(this.baseUrl + "/cycles", this.child)
+    .map(this.extractData)
+    .catch(this.handleError);
+  }
+
+  public deleteCycle(cycleId:any){
+    return this.http.delete(this.baseUrl + "/cycle/"+cycleId)
+    .map(this.extractData)
+    .catch(this.handleError);
+  }
+
   public fetchObjectives(cycleId: any) {
     
     return this.http.get(this.baseUrl + "/cycle/" + cycleId + "/objective")
@@ -70,7 +105,7 @@ export class UniversityService {
   }
 
   public getObjectives(){
-    return this.http.get(this.baseUrl + "/objectives")
+    return this.http.get(this.baseUrl + "/goals", this.child)
     .map(this.extractData)
     .catch(this.handleError);
   }
@@ -82,38 +117,38 @@ export class UniversityService {
   }
 
   public getInitiatives(){
-    return this.http.get(this.baseUrl + "/initiatives")
+    return this.http.get(this.baseUrl + "/initiatives",this.parent)
     .map(this.extractData)
     .catch(this.handleError);
   }
 
   public getActivities(){
-    return this.http.get(this.baseUrl + "/activities")
+    return this.http.get(this.baseUrl + "/activities",this.parent)
     .map(this.extractData)
     .catch(this.handleError);
   }
 
   public getMeasures(){
-    return this.http.get(this.baseUrl + "/measures")
+    return this.http.get(this.baseUrl + "/opis", this.parent)
     .map(this.extractData)
     .catch(this.handleError);
   }
 
   public addObjective(objective: any) {
     
-    return this.http.post(this.baseUrl + "/objective", objective)
+    return this.http.post(this.baseUrl + "/goal", objective)
       .map(this.extractData)
       .catch(this.handleError);
   }
 
   public deleteObjective(id:any){
-    return this.http.delete(this.baseUrl + "/objective/"+id)
+    return this.http.delete(this.baseUrl + "/goal/"+id)
     .map(this.extractData)
     .catch(this.handleError);
   }
 
   public updateObjective(id:any,object:any){
-    return this.http.put(this.baseUrl + "/objective/"+id,object)
+    return this.http.put(this.baseUrl + "/goal/"+id,object)
     .map(this.extractData)
     .catch(this.handleError);
   }
@@ -238,25 +273,25 @@ export class UniversityService {
   }
 
   public saveMeasure(measure: any) {    
-    return this.http.post(this.baseUrl + "/measures", measure)
+    return this.http.post(this.baseUrl + "/opi", measure)
       .map(this.extractData)
       .catch(this.handleError);
   }
 
   public deleteMeasure(measureId:any){
-    return this.http.delete(this.baseUrl + "/measure/"+measureId)
+    return this.http.delete(this.baseUrl + "/opi/"+measureId)
     .map(this.extractData)
     .catch(this.handleError);
   }
 
   public updateMeasure(measureId:any,object:any){
-    return this.http.put(this.baseUrl + "/measure/"+measureId,object)
+    return this.http.put(this.baseUrl + "/opi/"+measureId,object)
     .map(this.extractData)
     .catch(this.handleError);
   }
 
   public updateMisionVision(object:any){    
-    return this.http.put(this.baseUrl + "/initialSetup", object)
+    return this.http.put(this.baseUrl + "/university/" + this.con.getData('org_info').universityId, object)
       .map(this.extractData)
       .catch(this.handleError);
   }
@@ -274,7 +309,7 @@ export class UniversityService {
   }
 
   public assignMeasure(measureId:any,departments:any[]){
-    return this.http.post(this.baseUrl + "/assign/measure/" + measureId + "/departments", { 'departments': departments })
+    return this.http.post(this.baseUrl + "/assign/opi/" + measureId + "/departments", { 'departments': departments })
     .map(this.extractData)
     .catch(this.handleError);
   }

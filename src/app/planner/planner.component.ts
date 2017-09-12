@@ -17,8 +17,7 @@ export class PlannerComponent{
 
 	public fetchOrganizationInfo() {
     this.utiService.fetchOrganizationInfo().subscribe((res:any) => {
-			this.stogareService.storeData("org_info", res); 
-			
+			this.stogareService.storeData("org_info", res); 			
     }, (err:any) => {
 
     });

@@ -1,30 +1,33 @@
-<div class="container">
-  <div class="panel-group" id="accordion">
+<div class="container-fluid">
+  <!-- <div class="panel-group" id="accordion"> -->
     <div class="panel">
       <div class="panel-heading background-3"><span style="cursor:pointer;" data-toggle="collapse" data-parent="#accordion" href="#collapse1"><i class="glyphicon glyphicon-collapse-up"></i>Edit Section</span> 
-        <!-- <span class="pull-right" style="cursor:pointer">
-          <div class="ctooltip">
-            <i class="glyphicon glyphicon-remove"></i>
-            <span class="ctooltiptext">Close</span>
-          </div>
-        </span> -->
+        <span class="pull-right" style="cursor:pointer" data-toggle="tooltip" data-placement="auto" title="collapse">
+            <i class="glyphicon glyphicon-collapse-up" data-toggle="collapse" href="#collapse1"></i>
+        </span>
       </div>
       
       <div id="collapse1" class="panel-collapse collapse">
         <div class="panel-body">
-          <form [formGroup]="objectiveForm" (submit)="onSubmit()">
+          <form [formGroup]="goalForm" (submit)="onSubmit()">
             <div class="row">
-              <div class="col-lg-12 col-xs-12 col-sm-12">
+              <div class="col-lg-6 col-xs-12 col-sm-6">                    
                 <div class="form-group">
-                  <label class="col-form-label">
-                    <span class="badge background-3">Objective</span>
-                  </label>
-                  <textarea class="form-control" rows="3" formControlName="objective"></textarea>
+                  <label class="control-label" for="year">Plan Year:</label>
+                  <select id="year" name="year" class="form-control" formControlName="cycleId">
+                      <option *ngFor="let c of cycles;let y = index;" [value]="c.cycleId">{{c.planYear}}: [{{c.startYear}} To {{c.endYear}}] : {{c.description}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-lg-6 col-xs-12 col-sm-6">
+                <div class="form-group">
+                  <label class="control-label">Goal</label>
+                  <textarea class="form-control" rows="3" formControlName="goal"></textarea>
                 </div>
               </div>
             </div>
-            <button type="submit" class="btn btn-success" [disabled]="objectiveForm.invalid">Submit</button>
-            <button type="button" class="btn btn-default btn-danger" (click)="objectiveForm.reset();isUpdating=false;">Clear</button>
+            <button type="submit" class="btn btn-success" [disabled]="goalForm.invalid">Submit</button>
+            <button type="button" class="btn btn-default btn-danger" (click)="goalForm.reset();isUpdating=false;">Clear</button>
           </form>
         </div>
       </div>
@@ -40,33 +43,34 @@
       </div>
       
       <div id="collapse2" class="panel-collapse collapse in">
-          <table class="table table-hover table-bordered">
-            <thead class="header-background">
-              <tr>
-                <th>Goal
-                  <span class="search">
-                    <!-- <form [formGroup]="searchForm" (submit)="onSearch()"> -->
-                    <input type="text" name="search" (keyup)="searchGoal($event)" placeholder="Search..">
-                    <!-- <button type="submit" [disabled]="searchForm.invalid" class="btn glyphicon glyphicon-filter"></button> -->
-                    <!-- </form> -->
-                  </span>
-                </th>
-                <th></th>     
-                <th></th>                            
-              </tr>
-            </thead>
-            <tbody class="body-background">
-              <!-- <tr><td colspan="3"></td></tr> -->
-              <tr *ngFor="let goal of goals;let i = index;">
-                <td style="vertical-align: middle;">{{goal.objective}}</td>
-                <td style="vertical-align: middle;"><i class="glyphicon glyphicon-edit" style="cursor:pointer;"(click)="updateGoal(goal)" data-parent="#accordion" data-toggle="collapse" href="#collapse1"></i></td>
-                <td style="vertical-align: middle;"><i class="glyphicon glyphicon-remove" style="cursor:pointer;" (click)="deleteGoal(goal.objectiveId,goals,i)"></i></td>
-              </tr>
-            </tbody>
-          </table>
+        <table class="table table-hover table-bordered" *ngIf="goals.length">
+          <thead class="header-background">
+            <tr>
+              <th>Goal
+                <span class="search">
+                  <!-- <form [formGroup]="searchForm" (submit)="onSearch()"> -->
+                  <input type="text" name="search" (keyup)="searchGoal($event)" placeholder="Search..">
+                  <!-- <button type="submit" [disabled]="searchForm.invalid" class="btn glyphicon glyphicon-filter"></button> -->
+                  <!-- </form> -->
+                </span>
+              </th>
+              <th></th>     
+              <th></th>                            
+            </tr>
+          </thead>
+          <tbody class="body-background">
+            <!-- <tr><td colspan="3"></td></tr> -->
+            <tr *ngFor="let goal of goals;let i = index;">
+              <td style="vertical-align: middle;">{{goal.goal}}</td>
+              <td style="vertical-align: middle;"><i class="glyphicon glyphicon-edit" style="cursor:pointer;"(click)="updateGoal(goal)" data-parent="#accordion" data-toggle="collapse" href="#collapse1"></i></td>
+              <td style="vertical-align: middle;"><i class="glyphicon glyphicon-remove" style="cursor:pointer;" (click)="deleteGoal(goal.goalId,goals,i)"></i></td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="text-center" *ngIf="!goals.length" style="padding-top: 5px;">No Goals Added Yet...</p>  
       </div>
     </div>
-  </div>
+  <!-- </div> -->
 
   <!--popup model-->
 <div class="modal fade" id="objectModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -80,7 +84,7 @@
         <p>You have successfully added a new Goal.</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal" data-toggle="collapse" data-parent="#accordion" href="#collapse2">Close</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" data-toggle="collapse" data-parent="#accordion" href="#collapse1">Close</button>
       </div>
     </div>
   </div>

@@ -7,124 +7,149 @@
       </span>
     </div>
     <div id="collapse1" class="panel-collapse collapse">
-    <div class="panel-body">
-      <form [formGroup]="measureForm" (submit)="submitMeasure()">
-        <div class="row">
-          <div class="col-lg-6 col-xs-12 col-sm-12">
-            <div class="form-group">
-              <label>Select Goal:</label>
-              <select class="form-control" id="sel1" formControlName="objectiveId" (ngModelChange)="getInitiative($event)">
-                <option *ngFor="let objective of objectives;let i=index;" [value]="objective.objectiveId">{{i+1}}.{{objective.objective}}</option>
-              </select>
+      <div class="panel-body">
+        <form [formGroup]="measureForm" (submit)="submitMeasure()">
+          <div class="row">
+          <div class="col-lg-6 col-xs-12 col-sm-6">                    
+              <div class="form-group">
+                <label class="control-label" for="year">Plan Year:</label>
+                <select id="year" name="year" class="form-control" formControlName="cycleId" (ngModelChange)="getObjective($event)">
+                    <option *ngFor="let c of cycles;let y = index;" [value]="y">{{c.planYear}}: [{{c.startYear}} To {{c.endYear}}] : {{c.description}}</option>
+                </select>
+              </div>
             </div>
-          </div>
-          <div class="col-lg-6 col-xs-12 col-sm-12">
-            <div class="form-group">
-              <label>Select Initiative:</label>
-              <select class="form-control" id="sel1" formControlName="initiativeId" (ngModelChange)="getActivities($event)">
+            <div class="col-lg-6 col-xs-12 col-sm-12">
+              <div class="form-group">
+                <label>Select Goal:</label>
+                <select class="form-control" id="sel1" formControlName="objectiveId" (ngModelChange)="getInitiative($event)">
+                <option *ngFor="let objective of objectives;let i=index;" [value]="objective.goalId">{{i+1}}.{{objective.goal}}</option>
+              </select>
+              </div>
+            </div>
+            <div class="col-lg-6 col-xs-12 col-sm-12">
+              <div class="form-group">
+                <label>Select Initiative:</label>
+                <select class="form-control" id="sel1" formControlName="initiativeId" (ngModelChange)="getActivities($event)">
                 <option *ngFor="let initiative of initiatives;let j=index;" [value]="initiative.initiativeId">{{j+1}}.{{initiative.initiative}}</option>
               </select>
+              </div>
             </div>
-          </div>
 
-          <div class="col-lg-6 col-xs-12 col-sm-12">
-            <div class="form-group">
-              <label>Select Activity:</label>
-              <select class="form-control" id="sel1" formControlName="activityId">
+            <div class="col-lg-6 col-xs-12 col-sm-12">
+              <div class="form-group">
+                <label>Select Activity:</label>
+                <select class="form-control" id="sel1" formControlName="activityId">
                 <option *ngFor="let activity of activities;let k=index;" [value]="activity.activityId">{{k+1}}.{{activity.activity}}</option>
               </select>
+              </div>
             </div>
-          </div>
-          <div class="col-lg-6 col-xs-12 col-sm-12">
-            <div class="form-group">
-              <label>Measure</label>
-              <textarea class="form-control" rows="3" formControlName="measure"></textarea>
+            <div class="col-lg-6 col-xs-12 col-sm-12">
+              <div class="form-group">
+                <label>OPI</label>
+                <textarea class="form-control" rows="3" formControlName="opi"></textarea>
+              </div>
             </div>
-          </div>
-          <div class="col-lg-6 col-xs-12 col-sm-12">
-            <div class="form-group">
-              <label>Select MeasureUnit</label>
-              <select class="form-control" formControlName="measureUnit">
+            <div class="col-lg-6 col-xs-12 col-sm-12">
+              <div class="form-group">
+                <label>Select MeasureUnit</label>
+                <select class="form-control" formControlName="measureUnit">
                 <option value="" disabled selected>Choose Measurement Unit</option>
                 <option value="percentage">Percent</option>
-                <option value="decimal">Decimal</option>
+                <option value="number">Decimal</option>
+                <option value="rate">Rate</option>
               </select>
+              </div>
             </div>
-          </div>
-          <div class="col-lg-6 col-xs-12 col-sm-12">
-            <div class="form-group">
-              <label>Select Direction</label>
-              <select class="form-control" formControlName="direction">
+            <div class="col-lg-6 col-xs-12 col-sm-12">
+              <div class="form-group">
+                <label>Select Direction</label>
+                <select class="form-control" formControlName="direction">
                 <option value="" disabled selected>Choose Direction of measureUnit</option>
-                <option value="upward">Upward</option>
-                <option value="downward">Downward</option>
+                <option value="true">Positive</option>
+                <option value="false">Negative</option>
               </select>
+              </div>
             </div>
-          </div>
-          <div class="col-lg-6 col-xs-12 col-sm-12">
-            <div class="form-group">
-              <label>Current Level</label>
-              <input type="number" min="0" step="1" class="form-control" formControlName="currentLevel">
+            <div class="col-lg-6 col-xs-12 col-sm-12">
+              <div class="form-group">
+                <label>Base Line</label>
+                <input type="number" min="0" step="1" class="form-control" formControlName="baseline">
+              </div>
             </div>
-          </div>
-          <div class="col-lg-6 col-xs-12 col-sm-12">
-            <div class="form-group">
-              <label>Frequency of Measurement</label>
-              <select class="form-control" formControlName="frequencyId" (ngModelChange)="setTargetTable(measureForm.controls.annualTarget.controls,$event)">
+            <div class="col-lg-6 col-xs-12 col-sm-12">
+              <div class="form-group">
+                <label>Frequency of Measurement</label>
+                <select class="form-control" formControlName="frequencyId">
                 <option value="1">Annually</option>
                 <option value="2">Semi-Annual</option>      
-                <option value="4">Quarterly</option> 
+                <option value="3">Quarterly</option> 
               </select>
+              </div>
+            </div>
+            <div class="col-lg-6 col-xs-12 col-sm-12">
+              <div class="form-group">
+                <label>Remarks</label>
+                <textarea class="form-control" rows="3" formControlName="remarks"></textarea>
+              </div>
+            </div>
+            <div class="col-lg-6 col-xs-12 col-sm-12">
+              <div class="form-group">
+                <label>Help Text</label>
+                <textarea class="form-control" rows="3" formControlName="helpText"></textarea>
+              </div>
+            </div>
+            <div class="col-lg-6 col-xs-12 col-sm-12 form-check">
+              <label class="form-check-label">
+                <input type="checkbox" class="form-check-input" formControlName="approvalRequired" >
+                Approval Required
+              </label>
             </div>
           </div>
-        </div>
-
-        <div>
-          <div class="panel-heading text-center"><b><span class="badge">{{commonService.getData('org_info').cycle[0]}} - {{commonService.getData('org_info').cycle[commonService.getData('org_info').cycle.length-1]}}
+          <!-- <div>
+            <div class="panel-heading text-center"><b><span class="badge">{{commonService.getData('org_info').cycle[0]}} - {{commonService.getData('org_info').cycle[commonService.getData('org_info').cycle.length-1]}}
                 Annual Target</span></b></div>
-          <div class="panel-body no" style="text-align: center;">
-            <table class="table table-striped" formArrayName="annualTarget">
-              <thead>
-                <tr>
-                  <th style="vertical-align: middle;" class="rgHeader" style="text-align: center;">Year</th>
-                  <th style="vertical-align: middle;" class="rgHeader" style="text-align: center;">Estimate Target</th>
-                  <th style="vertical-align: middle;" class="rgHeader" style="text-align: center;">Estimate Cost</th>
-                </tr>              
-              </thead>
+            <div class="panel-body no" style="text-align: center;">
+              <table class="table table-striped" formArrayName="annualTarget">
+                <thead>
+                  <tr>
+                    <th style="vertical-align: middle;" class="rgHeader" style="text-align: center;">Year</th>
+                    <th style="vertical-align: middle;" class="rgHeader" style="text-align: center;">Estimate Target</th>
+                    <th style="vertical-align: middle;" class="rgHeader" style="text-align: center;">Estimate Cost</th>
+                  </tr>
+                </thead>
 
-              <tbody *ngFor="let td of measureForm.controls.annualTarget.controls;let n = index;" [formGroupName]="n">
-                <tr>
-                  <td style="vertical-align:middle;">{{td.value.year}}</td>
-                  <div class="unexistance" formArrayName="levels">
-                    <td class="custom-center" *ngFor="let le of td.controls.levels.controls;let o = index;" [formGroupName]="o">
-                      <!-- <input type="text" class="validate" formControlName="estimatedTargetLevel"> -->
-                      <div class="input-group">
-                        <div class="input-group-addon">
-                          <!-- <select *ngIf="measureForm.controls.frequencyId.value != 4" (ngModel)="selectedQuarter" [ngModelOptions]="{standalone: true}" (ngModelChange)="setLevelByIndex(le,$event)">
+                <tbody *ngFor="let td of measureForm.controls.annualTarget.controls;let n = index;" [formGroupName]="n">
+                  <tr>
+                    <td style="vertical-align:middle;">{{td.value.year}}</td>
+                    <div class="unexistance" formArrayName="levels">
+                      <td class="custom-center" *ngFor="let le of td.controls.levels.controls;let o = index;" [formGroupName]="o">
+                        <input type="text" class="validate" formControlName="estimatedTargetLevel">Comment
+                        <div class="input-group">
+                          <div class="input-group-addon">
+                            <select *ngIf="measureForm.controls.frequencyId.value != 4" (ngModel)="selectedQuarter" [ngModelOptions]="{standalone: true}" (ngModelChange)="setLevelByIndex(le,$event)">
                             <option *ngFor="let q of quarters;let qi=index;" [value]="qi">Q{{qi+1}}</option>
-                          </select> -->
-                          <span style="text-transform: capitalize;">{{le.controls.quarter.value}}</span>
+                          </select>Comment
+                            <span style="text-transform: capitalize;">{{le.controls.quarter.value}}</span>
                           </div>
-                        <input type="text" class="form-control" id="exampleInputAmount" formControlName="estimatedTargetLevel" placeholder="Target">                          
-                      </div>
-                      <input type="text" formControlName="quarter" hidden>
-                      <input type="date" formControlName="startDate" hidden>
-                      <input type="date" formControlName="endDate" hidden>
+                          <input type="text" class="form-control" id="exampleInputAmount" formControlName="estimatedTargetLevel" placeholder="Target">
+                        </div>
+                        <input type="text" formControlName="quarter" hidden>
+                        <input type="date" formControlName="startDate" hidden>
+                        <input type="date" formControlName="endDate" hidden>
+                      </td>
+                    </div>
+                    <td style="vertical-align:middle;">
+                      <input type="text" class="validate" formControlName="estimatedCost">
                     </td>
-                  </div>
-                  <td style="vertical-align:middle;">
-                    <input type="text" class="validate" formControlName="estimatedCost">
-                  </td>
-                </tr>
-              </tbody>
-
-            </table>
-          </div>
-        </div>
-        <button type="submit" class="btn btn-success" [disabled]="measureForm.invalid">Submit</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </form>
-    </div>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div> -->
+          <button type="submit" class="btn btn-success" [disabled]="measureForm.invalid">Submit</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </form>
+      </div>
     </div>
   </div>
 
@@ -136,216 +161,160 @@
           <span class="ctooltiptext">Add OPI</span>
         </div>
       </span>
-    </div>
-    <div id="collapse2" class="panel-collapse collapse in">
-      <!-- <table class="table table-hover table-bordered">
-        <colgroup>
-          <col style="width:18%">
-          <col style="width:18%">
-          <col style="width:18%">
-          <col style="width:18%">
-          <col style="width:5%">
-          <col style="width:15%">
-          <col style="width:3%">
-          <col style="width:1%">
-          <col style="width:1%">
-          <col style="width:3%">
-        </colgroup>
-        <thead>
-          <tr>
-            <th style="vertical-align: middle;" class="rgHeader">Goal
-              <span class="search">
-                <input type="text" name="search" (keyup)="search($event)"  placeholder="Search..">
-              </span>
-            </th>
-            <th style="vertical-align: middle;" class="rgHeader">Initiative</th>
-            <th style="vertical-align: middle;" class="rgHeader">Activities</th>
-            <th style="vertical-align: middle;" class="rgHeader">OPI</th>
-            <th style="vertical-align: middle;" class="rgHeader">Frequency</th>
-            <th style="vertical-align: middle;" class="rgHeader">Assigned Departments</th>
-            <th style="vertical-align: middle;" class="rgHeader">Cost</th>
-            <th style="vertical-align: middle;" class="rgHeader"></th>
-            <th style="vertical-align: middle;" class="rgHeader"></th>
-            <th style="vertical-align: middle;" class="rgHeader"></th>
-          </tr>
-        </thead>
-      </table> -->
-      <div class="d-flex border flex-header ">
+  </div>
+  <div id="collapse2" class="panel-collapse collapse in" *ngIf="goals.length">
+    <div class="d-flex border flex-header " >
+      <div class="p-2 border">
+        Goal
+        <span class="search">
+            <input type="text" name="search" (keyup)="search($event)"  placeholder="Search..">
+        </span>
+      </div>
+      <div class="p-3 border">
+        <div class="d-flex">
           <div class="p-2 border">
-             Goal
-             <span class="search">
-                <input type="text" name="search" (keyup)="search($event)"  placeholder="Search..">
-            </span>
+            Initiative
           </div>
           <div class="p-3 border">
             <div class="d-flex">
               <div class="p-2 border">
-                  Initiative
+                Activities
               </div>
               <div class="p-3 border">
-                  <div class="d-flex">
-                      <div class="p-2 border">
-                          Activities
-                      </div>
-                      <div class="p-3 border">
-                        <div class="d-flex">
-                            <div class="p-2" style="flex-basis:30%;">
-                                OPI
-                            </div>
-                            <div class="p-2 text-center" style="flex-basis:15%;">
-                                Frequency
-                            </div>    
-                            <div class="p-2" style="flex-basis:25%;">
-                                Departments
-                            </div>
-                            <div class="p-2 text-center" style="flex-basis:10%;">
-                                Cost
-                            </div>
-                            <div class="p-2" style="flex-basis:5%;">
-                                Edit
-                            </div>
-                            <div class="p-2" style="flex-basis:5%;">
-                                Delete
-                            </div>
-                            <div class="p-2 text-center " style="flex-basis:10%;">
-                                Assign
-                            </div>
-                          </div>
-                      </div>
+                <div class="d-flex">
+                  <div class="p-2" style="flex-basis:30%;">
+                    OPI
                   </div>
+                  <div class="p-2 text-center" style="flex-basis:15%;">
+                    Frequency
+                  </div>
+                  <div class="p-2" style="flex-basis:25%;">
+                    Departments
+                  </div>
+                  <div class="p-2 text-center" style="flex-basis:10%;">
+                    Cost
+                  </div>
+                  <div class="p-2" style="flex-basis:5%;">
+                    Edit
+                  </div>
+                  <div class="p-2" style="flex-basis:5%;">
+                    Delete
+                  </div>
+                  <div class="p-2 text-center " style="flex-basis:10%;">
+                    Assign
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-<div class="d-flex margin-1 body-background" *ngFor="let goal of goals;let i = index;">
-  <div class="p-2 border">
-      {{ goal.objective }}
-  </div>
-  <div class="p-3 border">
-    <div class="d-flex" *ngFor="let initiate of goal.initiatives;let j=index">
-      <div class="p-2 border-bottom">
-          {{initiate.initiative}}
       </div>
-      <div class="p-3 border no-bottom-border">
-          <div class="d-flex" *ngFor="let activit of initiate.activities;let k=index">
+    </div>
+    <div class="d-flex margin-1 body-background" *ngFor="let goal of goals;let i = index;">
+      <div class="p-2 border">
+        {{ goal.goal }}
+      </div>
+      <div class="p-3 border">
+        <div class="d-flex" *ngFor="let initiate of goal.initiatives;let j=index">
+          <div class="p-2 border-bottom">
+            {{initiate.initiative}}
+          </div>
+          <div class="p-3 border no-bottom-border">
+            <div class="d-flex" *ngFor="let activit of initiate.activities;let k=index">
               <div class="p-2 border-bottom">
-                  {{activit.activity}}
+                {{activit.activity}}
               </div>
               <div class="p-3">
-                <!-- <div class="row" *ngFor="let msr of activit.measures;let l=index">
-                  <div class="col-lg-3 col-xs-3">
-                      {{msr.measure}}
+                <div class="d-flex height-100" *ngFor="let msr of activit.opis;let l=index">
+                  <div class="p-2 border no-bottom-border" style="flex-basis:30%;">
+                    {{msr.opi}}
                   </div>
-                  <div class="col-lg-2 col-xs-2">
-                      {{msr.frequency}}
-                  </div>    
-                  <div class="col-lg-3 col-xs-3">
-                      <ul style="list-style:none;padding:0px;">
-                        <li *ngFor="let dept of msr.assignedDepartments;let d = index">{{dept.department}}, </li>
-                      </ul>
-                      <span *ngIf="!msr.assignedDepartments.length">None</span>
+                  <div class="p-2 text-center border no-bottom-border" style="flex-basis:15%;">
+                    {{msr.frequency}}
                   </div>
-                  <div class="col-lg-1 col-xs-1">
-                      10000
+                  <div class="p-2 border no-bottom-border" style="flex-basis:25%;">
+                    <ul style="list-style:none;padding:0px;">
+                      <li *ngFor="let dept of msr.assignedDepartments;let d = index">{{dept.department}}, </li>
+                    </ul>
+                    <span *ngIf="!msr.assignedDepartments.length">None</span>
                   </div>
-                  <div class="col-lg-1 col-xs-1">
-                      <i class="glyphicon glyphicon-edit" style="cursor:pointer;"(click)="updateMeasure(goal,initiate,activit,msr)" data-parent="#accordion" data-toggle="collapse" href="#collapse1"></i>
+                  <div class="p-2 text-center border no-bottom-border" style="flex-basis:10%;">
+                    10000
                   </div>
-                  <div class="col-lg-1 col-xs-1">
-                      <i style="cursor:pointer;" class="glyphicon glyphicon-remove" (click)="deleteMeasure(msr.measureId,activit.measures,l)"></i>
+                  <div class="p-2 border-bottom" style="flex-basis:5%;">
+                    <i class="glyphicon glyphicon-edit" style="cursor:pointer;" (click)="updateMeasure(goal,initiate,activit,msr)" data-parent="#accordion"
+                      data-toggle="collapse" href="#collapse1"></i>
                   </div>
-                  <div class="col-lg-1 col-xs-1">
-                      <a data-toggle="modal" data-target="#myModal" (click)="selectedMeasureId=msr.measureId;selectedMeasuresDept = msr.assignedDepartments">Assign</a>
+                  <div class="p-2 border-bottom" style="flex-basis:5%;">
+                    <i style="cursor:pointer;" class="glyphicon glyphicon-remove" (click)="deleteMeasure(msr.measureId,activit.measures,l)"></i>
                   </div>
-                </div> -->
-                <div class="d-flex height-100" *ngFor="let msr of activit.measures;let l=index">
-                    <div class="p-2 border no-bottom-border" style="flex-basis:30%;">
-                        {{msr.measure}}
-                    </div>
-                    <div class="p-2 text-center border no-bottom-border" style="flex-basis:15%;">
-                        {{msr.frequency}}
-                    </div>    
-                    <div class="p-2 border no-bottom-border" style="flex-basis:25%;">
-                        <ul style="list-style:none;padding:0px;">
-                          <li *ngFor="let dept of msr.assignedDepartments;let d = index">{{dept.department}}, </li>
-                        </ul>
-                        <span *ngIf="!msr.assignedDepartments.length">None</span>
-                    </div>
-                    <div class="p-2 text-center border no-bottom-border" style="flex-basis:10%;">
-                        10000
-                    </div>
-                    <div class="p-2 border-bottom" style="flex-basis:5%;">
-                        <i class="glyphicon glyphicon-edit" style="cursor:pointer;"(click)="updateMeasure(goal,initiate,activit,msr)" data-parent="#accordion" data-toggle="collapse" href="#collapse1"></i>
-                    </div>
-                    <div class="p-2 border-bottom" style="flex-basis:5%;">
-                        <i style="cursor:pointer;" class="glyphicon glyphicon-remove" (click)="deleteMeasure(msr.measureId,activit.measures,l)"></i>
-                    </div>
-                    <div class="p-2 text-center border-bottom" style="flex-basis:10%;">
-                        <a data-toggle="modal" data-target="#myModal" (click)="selectedMeasureId=msr.measureId;selectedMeasuresDept = msr.assignedDepartments">Assign</a>
-                    </div>
+                  <div class="p-2 text-center border-bottom" style="flex-basis:10%;">
+                    <a data-toggle="modal" data-target="#myModal" (click)="selectedMeasureId=msr.opiId;selectedMeasuresDept = msr.assignedDepartments">Assign</a>
                   </div>
+                </div>
 
               </div>
+            </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p class="text-center" *ngIf="!goals.length" style="padding-top: 5px;">No OPI Added Yet...</p>
+</div>
+<!-- </div> -->
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog" *ngIf="selectedMeasuresDept">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Assign To</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="radio">
+              <label><input type="radio" name="optradio"> All(Institutional Units)</label>
+            </div>
+            <div class="radio">
+              <label><input type="radio" name="optradio">Select</label>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="department-hierarchy">
+              <b>Organisation Unit</b>
+              <tree-view id="termSheetPopup" [treeData]="departments" (onSelected)="department($event)"></tree-view>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" (click)="assignDepartment()">Update</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
 </div>
-    </div>
-  </div>
-  <!-- </div> -->
 
-  <!-- Modal -->
-  <div class="modal fade" id="myModal" role="dialog" *ngIf="selectedMeasuresDept">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Assign To</h4>
-        </div>
-        <div class="modal-body">
-          <div class="row">
-            <div class="col-sm-6">
-              <div class="radio">
-                <label><input type="radio" name="optradio"> All(Institutional Units)</label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" name="optradio">Select</label>
-              </div>                  
-            </div>
-            <div class="col-sm-6">
-              <div  class="department-hierarchy" >
-                <b>Organisation Unit</b>
-                <tree-view id="termSheetPopup" [treeData]="departments" (onSelected)="department($event)"></tree-view>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" (click)="assignDepartment()">Update</button>
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
+
+<!--popup model-->
+<div class="modal fade" id="measureModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Confirm</h4>
+      </div>
+      <div class="modal-body">
+        <p>You have successfully added a new Measure.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" data-toggle="collapse" href="#collapse1">Close</button>
       </div>
     </div>
   </div>
-
-  
-    <!--popup model-->
-    <div class="modal fade" id="measureModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Confirm</h4>
-          </div>
-          <div class="modal-body">
-            <p>You have successfully added a new Measure.</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal" data-toggle="collapse" data-parent="#accordion" href="#collapse2">Close</button>
-          </div>
-        </div>
-      </div>
-    </div>
+</div>
 
 </div>

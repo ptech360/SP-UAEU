@@ -8,7 +8,7 @@ import 'rxjs/add/observable/throw';
 import {StorageService} from '../shared/storage.service';
 @Injectable()
 export class CredentialService {
-  public baseUrl: string = "http://planning.ind-cloud.everdata.com/api";
+  public baseUrl: string = "http://localhost:8080/spv4/";
   login: any = false;
   headers: any;
   access_token: string;

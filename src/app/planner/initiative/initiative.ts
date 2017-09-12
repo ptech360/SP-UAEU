@@ -11,18 +11,20 @@ declare let $:any;
   styleUrls:['./initiative.css','./../planner.component.css']
 })
 export class InitiativeComponent{
-  public goals:any[];
-  public goalsCopy:any[];
-  public objectives:any[];
+  public cycles:any[]=[];
+  public goals:any[]=[];
+  public goalsCopy:any[]=[];
+  public objectives:any[]=[];
   public initiativeForm: FormGroup;
   public isUpdating:boolean = false;
   public quarter:any[] = ["Q1","Q2","Q3","Q4"];
   constructor(public orgService:UniversityService, 
               public formBuilder: FormBuilder,
               public commonService:StorageService){
-              this.orgService.getObjectives().subscribe((response:any)=>{
-                this.objectives = response;
-              });
+              // this.orgService.getObjectives().subscribe((response:any)=>{
+              //   this.objectives = response;
+              // });
+              this.getCycleWithChildren();
               this.getInitiative();
               this.initiativeForm = this.initForm();
   }
@@ -43,16 +45,40 @@ export class InitiativeComponent{
     }
   }
 
+  getCycleWithChildren(){
+    this.orgService.getCycleWithChildren().subscribe((response:any)=>{
+      if(response.status == 204){
+        this.cycles = [];
+        // this.objectives = [];
+      }else{
+        this.cycles = response;
+        // this.objectives = response[0].goals;
+        // console.log(this.objectives);
+      }
+    })
+  }
+
+  getObjective(cycleId:any){
+    if(cycleId)
+    this.objectives = this.cycles[cycleId].goals;
+  }
+
   getInitiative(){
     this.orgService.getInitiatives().subscribe((response:any)=>{
-      this.goals = response;
-      this.goalsCopy = response;
+      if(response.status == 204){
+        this.goals = [];
+        this.goalsCopy = [];  
+      }else{
+        this.goals = response;
+        this.goalsCopy = response;
+      }      
     });
   }
 
   initForm(){
     return this.formBuilder.group({
-      "objectiveId":['',[Validators.required]],
+      "cycleId":['',[Validators.required]],
+      "goalId":['',[Validators.required]],
       "initiative": ['', [Validators.required]],
       // "totalCost": ['', [Validators.required]],
       // "activities": this.formBuilder.array([this.setActivity()])
@@ -126,6 +152,7 @@ export class InitiativeComponent{
   }
 
   submitInitiative() {
+    delete this.initiativeForm.value["cycleId"];
     if(!this.isUpdating)
     this.orgService.addInitiative(this.initiativeForm.value).subscribe((res:any) => {
       this.getInitiative();
@@ -151,13 +178,15 @@ export class InitiativeComponent{
     this.orgService.deleteInitiative(initiativeId).subscribe((res:any)=>{
       console.log(res);
       initiatives.splice(index,1);
+      this.getInitiative();
     })
   }
+
   selectedInitiative:any;
-  updateInitiative(objectiveId:any,initiative:any){
+  updateInitiative(goalId:any,initiative:any){
     this.isUpdating=true;
     this.selectedInitiative = initiative;
-    this.initiativeForm.controls["objectiveId"].patchValue(objectiveId);
+    this.initiativeForm.controls["goalId"].patchValue(goalId);
     this.initiativeForm.controls["initiative"].patchValue(initiative.initiative);
   }
 }

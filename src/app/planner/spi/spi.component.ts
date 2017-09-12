@@ -30,6 +30,7 @@ export class SPIComponent {
 
   inItSpi() {
     return this.formBuilder.group({
+      "cycleId":['',[Validators.required]],
       "objectiveId":['', [Validators.required]],
       "spi": ['', [Validators.required]],
       "measureUnit": ['', [Validators.required]],

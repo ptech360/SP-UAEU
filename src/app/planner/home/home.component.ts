@@ -32,16 +32,16 @@ export class HomeComponent implements OnInit {
 
   onValueSubmit(){
     if(this.selectedValue){
-      this.orgSer.updateValue(this.valueForm.value,this.selectedValue.id)
+      this.orgSer.updateValue(this.valueForm.value,this.selectedValue.valueId)
       .subscribe((res:any)=>{
-        this.valueForm.value["id"] = this.selectedValue.id;
+        this.valueForm.value["id"] = this.selectedValue.valueId;
         this.organizationInfo.values[this.selectedValueIndex] = this.valueForm.value;
         this.commonService.storeData('org_info',this.organizationInfo);
         $('#valueForm').modal('hide');
         this.valueForm.reset();
       })
     }else{
-      this.valueForm.value["setupId"] = this.organizationInfo[0].setupId;
+      this.valueForm.value["universityId"] = this.organizationInfo.universityId;
       this.orgSer.addValue([this.valueForm.value]).subscribe((res:any)=>{
         this.organizationInfo.values.push(this.valueForm.value);
         $('#valueForm').modal('hide');
@@ -50,8 +50,9 @@ export class HomeComponent implements OnInit {
     }    
   }
 
-  public deleteValue(val:any,index:any){
-    this.orgSer.deleteValue(val.id).subscribe((res:any)=>{
+  deleteValue(val:any,index:any){
+    console.log("asddfadsfdsfds adsf ");
+    this.orgSer.deleteValue(val.valueId).subscribe((res:any)=>{
       this.organizationInfo.values.splice(index,1);
     })
   }
@@ -70,11 +71,10 @@ export class HomeComponent implements OnInit {
 
   onMissionVisionSubmit(){
     var org_info:any = this.commonService.getData('org_info');
-    var object = {
-      id:org_info['setupId']
-    }
+    var object:any ={};
     object[this.missionVision] = this.missionVisionForm.value['description'];
-    this.orgSer.updateMisionVision(object).subscribe(res=>{
+    console.log(object);
+    this.orgSer.updateMisionVision(object).subscribe(res=>{      
       this.organizationInfo[this.missionVision] = this.missionVisionForm.value['description'];
       org_info[this.missionVision] = this.missionVisionForm.value['description'];
       this.commonService.storeData('org_info',org_info);

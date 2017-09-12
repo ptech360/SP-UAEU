@@ -12,10 +12,12 @@ declare let $:any;
 })
 
 export class GoalComponent{
-  public objectiveForm: FormGroup;
+  public goalForm: FormGroup;
   public isUpdating:boolean = false;
-  public goals:any[];
-  public goalsCopy:any[];
+  public goals:any[]=[];
+  public goalsCopy:any[]=[];
+  public cycles:any[]=[];
+  emptySearchResult:any;
   // public searchForm:FormGroup;
 
   constructor(public orgService:UniversityService,
@@ -24,17 +26,18 @@ export class GoalComponent{
                 // this.searchForm = this.formBuilder.group({
                 //   "search":['',[Validators.required]]
                 // })
+              this.getCycles();
               this.initObjectiveForm();
               this.getGoals();
   }
-  emptySearchResult:any;
+  
   searchGoal(key:any){
     this.goals = this.goalsCopy;
     let val = key.target.value;
     if (val && val.trim() != '') {
       this.emptySearchResult = false;
       this.goals = this.goalsCopy.filter((item: any) => {
-        return (item.objective.toLowerCase().indexOf(val.toLowerCase()) > -1);
+        return (item.goal.toLowerCase().indexOf(val.toLowerCase()) > -1);
       })
       if (this.goals.length === 0)
         this.emptySearchResult = true;
@@ -43,15 +46,31 @@ export class GoalComponent{
     }
   }
 
+  getCycles(){
+    this.orgService.getCycles().subscribe((response:any)=>{
+      if(response.status == 204){
+        this.cycles = [];
+      }else{
+        this.cycles = response;
+      }
+    })
+  }
+
   getGoals(){
     this.orgService.getObjectives().subscribe((response:any)=>{
+      if(response.status == 204){
+        this.goals = [];
+        this.goalsCopy = [];  
+      }else{
       this.goals = response;
       this.goalsCopy = response;
+    }
     })
   }
   initObjectiveForm() {
-    this.objectiveForm = this.formBuilder.group({
-      "objective": ['', [Validators.required]],
+    this.goalForm = this.formBuilder.group({
+      "cycleId":['',[Validators.required]],
+      "goal": ['', [Validators.required]],
       // "totalCost": ['', [Validators.required]],
       // "spis": this.formBuilder.array([this.inItSpi()]),
     });
@@ -91,13 +110,15 @@ export class GoalComponent{
   }
 
   onSubmit() {
-    this.objectiveForm.value["cycleId"] = this.commonService.getData('org_info').cycles.id;
+    // this.goalForm.value["cycleId"] = this.commonService.getData('org_info').cycles[0].cycleId;/
+    console.log(this.goalForm.value);
     if(!this.isUpdating){
-      this.orgService.addObjective(this.objectiveForm.value).subscribe((response:any) => {
+      this.orgService.addObjective(this.goalForm.value).subscribe((response:any) => {
         $('#objectModal').modal('show');
         // this.returnedObject = response;
         // this.goals.push(this.returnedObject);
-        this.initObjectiveForm();
+        // this.initObjectiveForm();
+        this.goalForm.controls["goal"].reset();
         this.getGoals();
       }, (error:any) => {
         console.log(error);
@@ -106,27 +127,27 @@ export class GoalComponent{
     
     if(this.isUpdating){
       if(confirm("Are you sure you want to Update this Goal?"))
-      this.orgService.updateObjective(this.selectedObjective.objectiveId,this.objectiveForm.value).subscribe((res:any)=>{
+      this.orgService.updateObjective(this.selectedObjective.goalId,this.goalForm.value).subscribe((res:any)=>{
         console.log(res);
         $('#objectModal').modal('show');
-        this.objectiveForm.reset();
+        this.goalForm.reset();
         this.getGoals();
         this.isUpdating=false;
       })
     }
     
   }
-  deleteGoal(objectiveId:any,objectives:any[],index:any){
+  deleteGoal(goalId:any,goals:any[],index:any){
     if(confirm("Are you sure you want to delete this Goal?"))
-    this.orgService.deleteObjective(objectiveId).subscribe((res:any)=>{
+    this.orgService.deleteObjective(goalId).subscribe((res:any)=>{
       console.log(res);
-      objectives.splice(index,1);
+      goals.splice(index,1);
     })
   }
   selectedObjective:any;
   updateGoal(goal:any){
     this.selectedObjective = goal;
     this.isUpdating=true;
-    this.objectiveForm.controls["objective"].patchValue(goal.objective);
+    this.goalForm.controls["goal"].patchValue(goal.goal);
   }
 }

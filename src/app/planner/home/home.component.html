@@ -1,4 +1,4 @@
-  <div class="container">
+  <div class="container-fluid">
     <div class="panel panel-info panel-no-border">
       <!--<div class="panel-heading background-transparent text-center panel-no-border">-->
       <div class="panel-heading">
@@ -36,7 +36,7 @@
         <h3 class="panel-title">
           <b>Values</b>
           <span class="pull-right ctooltip">
-            <button class="btn btn-circle btn-right green-background" data-toggle="modal" data-target="#valueForm">
+            <button class="btn btn-circle btn-right green-background" data-toggle="modal" data-target="#valueForm" (click)="onValueSelected('',null)">
               <i class="glyphicon glyphicon-plus"></i>
             </button>
             <span class="ctooltiptext">Add Values</span>
@@ -51,7 +51,7 @@
                 <span class="glyphicon glyphicon-option-vertical dropdown-toggle" data-toggle="dropdown"></span>
                 <ul class="dropdown-menu">
                   <li><a data-toggle="modal" data-target="#valueForm" (click)="onValueSelected(val,i)">Edit</a></li>
-                  <li><a (clcik)="deleteValue(val,i)">Delete</a></li>
+                  <li><a (click)="deleteValue(val,i)">Delete</a></li>
                 </ul>
               </div>
             </div>

@@ -1,0 +1,90 @@
+<div class="container-fluid">
+  <div class="panel panel-default">
+    <div class="panel-heading">Edit Section</div>
+
+    <form [formGroup]="cycleForm" (submit)="onSubmit()">
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="year">Plan Year:</label>
+              <select id="year" name="year" class="form-control" style="width:auto;" formControlName="planYear">
+                  <option value="2017">2017</option>
+                  <option value="2018">2018</option>
+                  <option value="2019">2019</option>
+                  <option value="2020">2020</option>
+                  <option value="2021">2021</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="description">Description:</label>
+              <textarea class="form-control" id="description" name="description" formControlName="description"></textarea>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="year">From Year:</label>
+              <select id="from-year" name="from-year" class="form-control" style="width:auto;" formControlName="startYear">
+                  <option value="2017">2017</option>
+                  <option value="2018">2018</option>
+                  <option value="2019">2019</option>
+                  <option value="2020">2020</option>
+                  <option value="2021">2021</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="year">To Year:</label>
+              <select id="to-year" name="to-year" class="form-control" style="width:auto;" formControlName="endYear">
+                  <option value="2017">2017</option>
+                  <option value="2018">2018</option>
+                  <option value="2019">2019</option>
+                  <option value="2020">2020</option>
+                  <option value="2021">2021</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="active">Active:</label>
+              <input type="checkbox" id="active" name="active" formControlName="active">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel-footer">
+        <button type="submit" class="btn btn-default">Submit</button>
+      </div>
+    </form>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading"></div>
+    <div class="panel-body">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Plan Year</th>
+            <th>From Year</th>
+            <th>End Year</th>
+            <th>Description</th>
+            <th>isActive</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let c of cycles;let y = index;">
+            <td>{{c.planYear}}</td>
+            <td>{{c.startYear}}</td>
+            <td>{{c.endYear}}</td>
+            <td>{{c.description}}</td>
+            <td><i class="glyphicon glyphicon-check"></i></td>
+            <td><i class="glyphicon glyphicon-remove" (click)="deleteCycle(c.cycleId)"></i></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

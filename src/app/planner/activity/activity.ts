@@ -12,8 +12,9 @@ declare let $:any;
 })
 export class ActivityComponent implements OnInit,AfterViewInit{
   // [x: string]: any;
-  public goals: any[];
-  public goalsCopy: any[];
+  public cycles:any[]=[];
+  public goals: any[]=[];
+  public goalsCopy: any[]=[];
   
   public activityForm:FormGroup;
   public quarter:any[] = ["Q1","Q2","Q3","Q4"];
@@ -25,10 +26,15 @@ export class ActivityComponent implements OnInit,AfterViewInit{
   constructor(public orgService:UniversityService,
               public formBuilder: FormBuilder,
               public commonService:StorageService){
-              this.orgService.getObjectivesWithHierarchy().subscribe((response:any)=>{
-                this.objectives = response;
-              });
-              
+              this.orgService.getCycleWithChildren().subscribe((response:any)=>{
+                if(response.status == 204){
+                  this.cycles = [];
+                  this.objectives = [];  
+                }else{
+                  this.cycles = response;
+                  this.objectives = response[0].goals;
+                }
+              });              
               this.activityForm = this.setActivity();
   }
     
@@ -41,10 +47,21 @@ export class ActivityComponent implements OnInit,AfterViewInit{
       $('[data-toggle="tooltip"]').tooltip(); 
     });
   }
+
+  getObjective(cycleId:any){
+    if(cycleId)
+    this.objectives = this.cycles[cycleId].goals;
+  }
+
   getActivities(){
     this.orgService.getActivities().subscribe((response:any)=>{
-      this.goals = response;
-      this.goalsCopy = response;
+      if(response.status == 204){
+        this.goals = [];
+        this.goalsCopy = [];  
+      }else{
+        this.goals = response;
+        this.goalsCopy = response;
+      }
     });
   }
 
@@ -65,19 +82,28 @@ export class ActivityComponent implements OnInit,AfterViewInit{
   }
 
   getInitiative(objId:any){
-    if(objId!=null)    
-    this.orgService.fetchInitiative(objId).subscribe((res:any)=>{
-      if(res.status === 204){
-        this.initiatives = [];
-        alert("There is no initiatives of corresponding Goal");
-      }else{
-        this.initiatives = res;        
-      }
-    });
+    if(objId!=null) 
+    {
+      this.objectives.forEach((element:any) => {
+        if(element.goalId == objId){
+          this.initiatives = element.initiatives;
+          return;          
+        }
+      });
+    }   
+    // this.orgService.fetchInitiative(objId).subscribe((res:any)=>{
+    //   if(res.status === 204){
+    //     this.initiatives = [];
+    //     alert("There is no initiatives of corresponding Goal");
+    //   }else{
+    //     this.initiatives = res;        
+    //   }
+    // });
   }
 
   setActivity() {
     return this.formBuilder.group({
+      "cycleId":['',[Validators.required]],
       "objectiveId":['', [Validators.required]],
       "initiativeId":['',[Validators.required]],
       "activity": ['', [Validators.required]],
@@ -119,6 +145,7 @@ export class ActivityComponent implements OnInit,AfterViewInit{
   }
 
   submitActivity(){
+    delete this.activityForm.value["cycleId"];
     delete this.activityForm.value["objectiveId"];
     if(!this.isUpdating){
       this.orgService.saveActivity(this.activityForm.value)
@@ -127,7 +154,7 @@ export class ActivityComponent implements OnInit,AfterViewInit{
         this.getActivities();
         this.activityForm.controls["activity"].reset();
       });
-    }else{
+    }else if(confirm("Are you sure you want to Update this Activity?")){
       delete this.activityForm.value["initiativeId"];
       this.orgService.updateActivity(this.seletedActivity.activityId,this.activityForm.value).subscribe((res:any)=>{
         this.getActivities();
@@ -150,7 +177,7 @@ export class ActivityComponent implements OnInit,AfterViewInit{
     $("#collapse1").collapse('show');
     this.isUpdating = true;
     this.seletedActivity = activity;
-    this.activityForm.controls["objectiveId"].patchValue(objective.objectiveId);
+    this.activityForm.controls["objectiveId"].patchValue(objective.goalId);
     this.activityForm.controls["initiativeId"].patchValue(initiative.initiativeId);
     this.activityForm.controls["activity"].patchValue(activity.activity);
   }
